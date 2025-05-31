@@ -45,13 +45,12 @@ portfolioButtons.forEach((btn) => {
 //faq
 
 document.querySelectorAll('.faq-trigger').forEach(trigger => {
-  const arrow = trigger.querySelector('.faq-arrow');
   const targetId = trigger.getAttribute('data-target');
   const answer = document.getElementById(targetId);
 
-  arrow.style.cursor = 'pointer';
+  trigger.style.cursor = 'pointer';
 
-  arrow.addEventListener('click', (e) => {
+  trigger.addEventListener('click', (e) => {
     e.stopPropagation();
     const isVisible = answer.style.display === 'block';
     answer.style.display = isVisible ? 'none' : 'block';
@@ -61,6 +60,13 @@ document.querySelectorAll('.faq-trigger').forEach(trigger => {
     }
   });
 });
+
+document.querySelectorAll('.faq-trigger').forEach(trigger => {
+  trigger.setAttribute('title', 'Click here to expand');
+});
+
+
+
 
 document.querySelectorAll('.info-card .card-header').forEach(header => {
   const cardBody = header.nextElementSibling;
@@ -74,6 +80,12 @@ document.querySelectorAll('.info-card .card-header').forEach(header => {
     cardBody.style.display = isOpen ? 'none' : 'block';
   });
 });
+
+
+document.querySelectorAll('.card-header').forEach(header => {
+  header.setAttribute('title', 'Click here to expand');
+});
+
 
 //menu-Toggle
 function toggleMenu() {
