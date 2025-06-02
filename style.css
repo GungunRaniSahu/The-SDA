@@ -72,6 +72,15 @@
     border: none;
   }  
 
+
+  .img-thumbnail {
+    padding: .25rem;
+    background-color: var(--bs-body-bg);
+    border: var(--bs-border-width) solid var(--bs-border-color);
+    border-radius: var(--bs-border-radius);
+    max-width: 115%;
+    height: auto;
+}
 #videoThumbnail{
   width: 85%; 
   height: auto;
@@ -145,6 +154,9 @@
 }
 /* Responsive adjustments */
 @media (max-width: 600px) {
+  .img-thumbnail{
+    width: 100%;
+  }
   .flow {
     font-size: 30px;
     margin-left: 0px;
@@ -251,7 +263,8 @@
     overflow-x: hidden;
   }
   .scroll-box {
-    overflow-x: hidden;
+    overflow-x: auto;
+    padding: 0 120px;
   }
   .boxes h2 {
     font-size: 30px;
