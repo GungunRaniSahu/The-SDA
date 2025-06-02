@@ -1098,7 +1098,7 @@ background: linear-gradient(to top, #0051ff27 -2%, #ffffff 10%);
   border-radius: 12px;
   /* padding: 35px 25px; */
   color: #fff;
-  min-height: 650px;
+  min-height: 550px;
   position: relative;
   display: flex;
   flex-direction: column;
@@ -1125,7 +1125,7 @@ background: linear-gradient(to top, #0051ff27 -2%, #ffffff 10%);
 .testimonial-card {
   flex: 0 0 100%;
   width: 391px;
-  height: 650px;
+  height: 550px;
  /* background: linear-gradient(to right, #6DADFF 10%, #0069FA 60%); */
  background: #0069FA;
   padding: 15px;
@@ -1280,7 +1280,7 @@ background: linear-gradient(to top, #0051ff27 -10%, #ffffff 10%);
     flex: 0 0 24%; /* Increased from 23% */
     max-width: 30%;
     min-height: 500px;
-    height: 650px;
+    height: 550px;
   }
 /* 
   .testimonial-card {
@@ -1348,7 +1348,31 @@ background: linear-gradient(to top, #0051ff27 -10%, #ffffff 10%);
   margin-left: 0;
 }
 
-
+.see-more{
+  margin-top: 10px;
+  justify-self: right;
+  margin-right: 30px;
+  padding: 10px 25px;
+  /* background: linear-gradient(90deg, #6DADFF, #0069FA); */
+  background: linear-gradient(to right, #6DADFF 0%, #6DADFF 10%, #0069FA 83%);
+  color: #fff;
+  font-weight: 600;
+  border-radius: 43px;
+  text-decoration: none;
+    outline: none;
+    border: none;
+    width: fit-content;
+}
+.see-more a{
+  color: #fff;
+  text-decoration: none;
+}
+@media screen and (max-width: 768px){
+  .see-more{
+    text-align: center;
+    justify-self: center;
+  }
+}
 
 .line2{
   display: block;
