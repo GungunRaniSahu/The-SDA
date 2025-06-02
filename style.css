@@ -1098,7 +1098,7 @@ background: linear-gradient(to top, #0051ff27 -2%, #ffffff 10%);
   border-radius: 12px;
   /* padding: 35px 25px; */
   color: #fff;
-  min-height: 550px;
+  min-height: 650px;
   position: relative;
   display: flex;
   flex-direction: column;
@@ -1125,7 +1125,7 @@ background: linear-gradient(to top, #0051ff27 -2%, #ffffff 10%);
 .testimonial-card {
   flex: 0 0 100%;
   width: 391px;
-  height: 550px;
+  height: 650px;
  /* background: linear-gradient(to right, #6DADFF 10%, #0069FA 60%); */
  background: #0069FA;
   padding: 15px;
@@ -1280,7 +1280,7 @@ background: linear-gradient(to top, #0051ff27 -10%, #ffffff 10%);
     flex: 0 0 24%; /* Increased from 23% */
     max-width: 30%;
     min-height: 500px;
-    height: 550px;
+    height: 650px;
   }
 /* 
   .testimonial-card {
