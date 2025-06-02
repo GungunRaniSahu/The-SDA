@@ -1,35 +1,65 @@
-const track = document.getElementById('testimonialTrack');
+const testimonialTrack = document.getElementById('testimonialTrack');
 const testimonialCards = document.querySelectorAll('.testimonial-card');
-const scrollButtons = document.querySelectorAll('.scroll-btn');
+const testimonialScrollButtons = document.querySelectorAll('.scroll-btn');
 
-let testimonialIndex = 0;
+let testimonialCurrentIndex = 0;
 
+// Scroll to a specific testimonial
 function scrollToTestimonial(index) {
   const cardWidth = testimonialCards[0].offsetWidth;
-  track.style.transform = `translateX(-${index * cardWidth}px)`;
+  testimonialTrack.style.transform = `translateX(-${index * cardWidth}px)`;
 }
 
-scrollButtons.forEach((btn) => {
+// Scroll with button click
+testimonialScrollButtons.forEach((btn) => {
   btn.addEventListener('click', () => {
-    testimonialIndex = (testimonialIndex + 1) % testimonialCards.length;
-    scrollToTestimonial(testimonialIndex);
+    testimonialCurrentIndex = (testimonialCurrentIndex + 1) % testimonialCards.length;
+    scrollToTestimonial(testimonialCurrentIndex);
   });
 });
 
+// Adjust on resize
 window.addEventListener('resize', () => {
-  scrollToTestimonial(testimonialIndex);
+  scrollToTestimonial(testimonialCurrentIndex);
 });
 
-function startAutoSlide() {
+// Auto-slide for mobile
+function startTestimonialAutoSlide() {
   if (window.innerWidth <= 768) {
     setInterval(() => {
-      testimonialIndex = (testimonialIndex + 1) % testimonialCards.length;
-      scrollToTestimonial(testimonialIndex);
-    }, 2000); 
-    }
+      testimonialCurrentIndex = (testimonialCurrentIndex + 1) % testimonialCards.length;
+      scrollToTestimonial(testimonialCurrentIndex);
+    }, 2000);
+  }
 }
+startTestimonialAutoSlide();
 
-startAutoSlide();
+// Manual swipe
+let testimonialTouchStartX = 0;
+let testimonialTouchEndX = 0;
+
+testimonialTrack.addEventListener('touchstart', (e) => {
+  testimonialTouchStartX = e.touches[0].clientX;
+});
+
+testimonialTrack.addEventListener('touchmove', (e) => {
+  testimonialTouchEndX = e.touches[0].clientX;
+});
+
+testimonialTrack.addEventListener('touchend', () => {
+  const swipeDistance = testimonialTouchStartX - testimonialTouchEndX;
+
+  if (swipeDistance > 50) {
+    // Swipe left
+    testimonialCurrentIndex = (testimonialCurrentIndex + 1) % testimonialCards.length;
+    scrollToTestimonial(testimonialCurrentIndex);
+  } else if (swipeDistance < -50) {
+    // Swipe right
+    testimonialCurrentIndex = (testimonialCurrentIndex - 1 + testimonialCards.length) % testimonialCards.length;
+    scrollToTestimonial(testimonialCurrentIndex);
+  }
+});
+
 
 
 const portfolioTrack = document.getElementById('portfolioTrack');
@@ -37,20 +67,23 @@ const portfolioButtons = document.querySelectorAll('.portfolio-scroll-btn');
 let portfolioIndex = 0;
 const totalPortfolioCards = portfolioTrack.children.length;
 
+// Move to specific card
 function moveToPortfolio(index) {
-  if (index < 0) index = 0;
-  if (index >= totalPortfolioCards) index = 0; 
+  if (index < 0) index = totalPortfolioCards - 1;
+  if (index >= totalPortfolioCards) index = 0;
   portfolioIndex = index;
   portfolioTrack.style.transform = `translateX(-${portfolioIndex * 100}%)`;
 }
 
+// Button click scroll
 portfolioButtons.forEach((btn) => {
   btn.addEventListener('click', () => {
     moveToPortfolio(portfolioIndex + 1);
   });
 });
 
-function startPortfolioAutoSlide() {
+// Auto-slide on mobile every 2 seconds
+function startAutoSlide() {
   if (window.innerWidth <= 768) {
     setInterval(() => {
       moveToPortfolio(portfolioIndex + 1);
@@ -58,7 +91,28 @@ function startPortfolioAutoSlide() {
   }
 }
 
-startPortfolioAutoSlide();
+// Touch sliding (mobile swipe)
+let startX = 0;
+let endX = 0;
+
+portfolioTrack.addEventListener('touchstart', (e) => {
+  startX = e.touches[0].clientX;
+});
+
+portfolioTrack.addEventListener('touchmove', (e) => {
+  endX = e.touches[0].clientX;
+});
+
+portfolioTrack.addEventListener('touchend', () => {
+  if (startX - endX > 50) {
+    moveToPortfolio(portfolioIndex + 1); // swipe left
+  } else if (endX - startX > 50) {
+    moveToPortfolio(portfolioIndex - 1); // swipe right
+  }
+});
+
+startAutoSlide();
+
 
 
 
