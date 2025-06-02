@@ -1,4 +1,3 @@
-// script.js
 const track = document.getElementById('testimonialTrack');
 const testimonialCards = document.querySelectorAll('.testimonial-card');
 const scrollButtons = document.querySelectorAll('.scroll-btn');
@@ -12,8 +11,7 @@ function scrollToTestimonial(index) {
 
 scrollButtons.forEach((btn) => {
   btn.addEventListener('click', () => {
-    testimonialIndex++;
-    if (testimonialIndex >= testimonialCards.length) testimonialIndex = 0;
+    testimonialIndex = (testimonialIndex + 1) % testimonialCards.length;
     scrollToTestimonial(testimonialIndex);
   });
 });
@@ -21,6 +19,17 @@ scrollButtons.forEach((btn) => {
 window.addEventListener('resize', () => {
   scrollToTestimonial(testimonialIndex);
 });
+
+function startAutoSlide() {
+  if (window.innerWidth <= 768) {
+    setInterval(() => {
+      testimonialIndex = (testimonialIndex + 1) % testimonialCards.length;
+      scrollToTestimonial(testimonialIndex);
+    }, 2000); 
+    }
+}
+
+startAutoSlide();
 
 
 const portfolioTrack = document.getElementById('portfolioTrack');
@@ -30,7 +39,7 @@ const totalPortfolioCards = portfolioTrack.children.length;
 
 function moveToPortfolio(index) {
   if (index < 0) index = 0;
-  if (index >= totalPortfolioCards) index = totalPortfolioCards - 1;
+  if (index >= totalPortfolioCards) index = 0; 
   portfolioIndex = index;
   portfolioTrack.style.transform = `translateX(-${portfolioIndex * 100}%)`;
 }
@@ -40,6 +49,17 @@ portfolioButtons.forEach((btn) => {
     moveToPortfolio(portfolioIndex + 1);
   });
 });
+
+function startPortfolioAutoSlide() {
+  if (window.innerWidth <= 768) {
+    setInterval(() => {
+      moveToPortfolio(portfolioIndex + 1);
+    }, 2000);
+  }
+}
+
+startPortfolioAutoSlide();
+
 
 
 //faq
@@ -110,7 +130,7 @@ function animateCount(el, target, duration = 2000) {
   }, stepTime);
 }
 
-function animateCount(el, target, duration = 2000) {
+function animateCount(el, target, duration = 2000, suffix = "+") {
   let start = 1;
   let current = start;
 
@@ -120,10 +140,10 @@ function animateCount(el, target, duration = 2000) {
   const counter = setInterval(() => {
     current += increment;
     if (current >= target) {
-      el.textContent = target.toLocaleString();
+      el.textContent = target.toLocaleString() + suffix;
       clearInterval(counter);
     } else {
-      el.textContent = current.toLocaleString();
+      el.textContent = current.toLocaleString() + suffix;
     }
   }, intervalTime);
 }
