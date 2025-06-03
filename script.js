@@ -61,7 +61,6 @@ testimonialTrack.addEventListener('touchend', () => {
 });
 
 
-
 const portfolioTrack = document.getElementById('portfolioTrack');
 const portfolioButtons = document.querySelectorAll('.portfolio-scroll-btn');
 let portfolioIndex = 0;
@@ -91,12 +90,17 @@ function startAutoSlide() {
   }
 }
 
-// Touch sliding (mobile swipe)
+// Touch sliding (mobile swipe) – FIXED
 let startX = 0;
 let endX = 0;
+let isTouchOnIframe = false;
 
+// Detect if touch starts on an iframe
 portfolioTrack.addEventListener('touchstart', (e) => {
   startX = e.touches[0].clientX;
+
+  // Check if the touched element is an iframe or inside one
+  isTouchOnIframe = e.target.tagName === 'IFRAME' || e.target.closest('iframe');
 });
 
 portfolioTrack.addEventListener('touchmove', (e) => {
@@ -104,6 +108,8 @@ portfolioTrack.addEventListener('touchmove', (e) => {
 });
 
 portfolioTrack.addEventListener('touchend', () => {
+  if (isTouchOnIframe) return; // Don't swipe if touched on iframe
+
   if (startX - endX > 50) {
     moveToPortfolio(portfolioIndex + 1); // swipe left
   } else if (endX - startX > 50) {
@@ -112,6 +118,7 @@ portfolioTrack.addEventListener('touchend', () => {
 });
 
 startAutoSlide();
+
 
 
 
