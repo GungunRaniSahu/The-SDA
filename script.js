@@ -65,6 +65,7 @@ const portfolioTrack = document.getElementById('portfolioTrack');
 const portfolioButtons = document.querySelectorAll('.portfolio-scroll-btn');
 let portfolioIndex = 0;
 const totalPortfolioCards = portfolioTrack.children.length;
+let autoSlideInterval = null;
 
 // Move to specific card
 function moveToPortfolio(index) {
@@ -84,22 +85,34 @@ portfolioButtons.forEach((btn) => {
 // Auto-slide on mobile every 2 seconds
 function startAutoSlide() {
   if (window.innerWidth <= 768) {
-    setInterval(() => {
+    autoSlideInterval = setInterval(() => {
       moveToPortfolio(portfolioIndex + 1);
     }, 2000);
   }
 }
 
-// Touch sliding (mobile swipe) – FIXED
+// Stop auto-slide
+function stopAutoSlide() {
+  if (autoSlideInterval) {
+    clearInterval(autoSlideInterval);
+    autoSlideInterval = null;
+  }
+}
+
+// Stop auto-slide if any iframe is clicked
+portfolioTrack.addEventListener('click', (e) => {
+  if (e.target.tagName === 'IFRAME' || e.target.closest('iframe')) {
+    stopAutoSlide();
+  }
+});
+
+// Touch sliding (mobile swipe) – detects iframe touch and avoids swipe
 let startX = 0;
 let endX = 0;
 let isTouchOnIframe = false;
 
-// Detect if touch starts on an iframe
 portfolioTrack.addEventListener('touchstart', (e) => {
   startX = e.touches[0].clientX;
-
-  // Check if the touched element is an iframe or inside one
   isTouchOnIframe = e.target.tagName === 'IFRAME' || e.target.closest('iframe');
 });
 
@@ -108,7 +121,7 @@ portfolioTrack.addEventListener('touchmove', (e) => {
 });
 
 portfolioTrack.addEventListener('touchend', () => {
-  if (isTouchOnIframe) return; // Don't swipe if touched on iframe
+  if (isTouchOnIframe) return;
 
   if (startX - endX > 50) {
     moveToPortfolio(portfolioIndex + 1); // swipe left
@@ -118,6 +131,7 @@ portfolioTrack.addEventListener('touchend', () => {
 });
 
 startAutoSlide();
+
 
 
 
