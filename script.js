@@ -75,14 +75,14 @@ function moveToPortfolio(index) {
   portfolioTrack.style.transform = `translateX(-${portfolioIndex * 100}%)`;
 }
 
-// Button click scroll
+// Scroll on button click
 portfolioButtons.forEach((btn) => {
   btn.addEventListener('click', () => {
     moveToPortfolio(portfolioIndex + 1);
   });
 });
 
-// Auto-slide on mobile every 2 seconds
+// Auto-slide for mobile
 function startAutoSlide() {
   if (window.innerWidth <= 768) {
     autoSlideInterval = setInterval(() => {
@@ -91,7 +91,6 @@ function startAutoSlide() {
   }
 }
 
-// Stop auto-slide
 function stopAutoSlide() {
   if (autoSlideInterval) {
     clearInterval(autoSlideInterval);
@@ -99,21 +98,14 @@ function stopAutoSlide() {
   }
 }
 
-// Stop auto-slide if any iframe is clicked
-portfolioTrack.addEventListener('click', (e) => {
-  if (e.target.tagName === 'IFRAME' || e.target.closest('iframe')) {
-    stopAutoSlide();
-  }
-});
-
-// Touch sliding (mobile swipe) – detects iframe touch and avoids swipe
+// Touch sliding (mobile swipe)
 let startX = 0;
 let endX = 0;
 let isTouchOnIframe = false;
 
 portfolioTrack.addEventListener('touchstart', (e) => {
   startX = e.touches[0].clientX;
-  isTouchOnIframe = e.target.tagName === 'IFRAME' || e.target.closest('iframe');
+  isTouchOnIframe = e.target.classList.contains('video-overlay');
 });
 
 portfolioTrack.addEventListener('touchmove', (e) => {
@@ -122,7 +114,6 @@ portfolioTrack.addEventListener('touchmove', (e) => {
 
 portfolioTrack.addEventListener('touchend', () => {
   if (isTouchOnIframe) return;
-
   if (startX - endX > 50) {
     moveToPortfolio(portfolioIndex + 1); // swipe left
   } else if (endX - startX > 50) {
@@ -130,7 +121,17 @@ portfolioTrack.addEventListener('touchend', () => {
   }
 });
 
+
+document.querySelectorAll('.video-overlay').forEach((overlay) => {
+  overlay.addEventListener('click', () => {
+    stopAutoSlide();
+    overlay.style.display = 'none'; 
+  });
+});
+
+// Start auto-slide
 startAutoSlide();
+
 
 
 
