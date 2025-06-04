@@ -57,7 +57,6 @@ testimonialTrack.addEventListener('touchend', () => {
 
 //portfolio
 
-
 const portfolioTrack = document.getElementById('portfolioTrack');
 const portfolioCards = document.querySelectorAll('.portfolio-card');
 const totalCards = portfolioCards.length;
@@ -107,6 +106,7 @@ document.querySelectorAll('.portfolio-thumbnail').forEach(thumbnail => {
     stopAutoSlide();
   });
 });
+
 
 
 
