@@ -869,6 +869,69 @@
     });
   </script>
   
-
+  <script>
+    const portfolioTrack = document.getElementById('portfolioTrack');
+    const portfolioCards = document.querySelectorAll('.portfolio-card');
+    let portfolioIndex = 0;
+    let autoSlideInterval = null;
+  
+    function moveToPortfolio(index) {
+      const totalCards = portfolioCards.length;
+      if (index < 0) index = totalCards - 1;
+      if (index >= totalCards) index = 0;
+      portfolioIndex = index;
+      const cardWidth = portfolioCards[0].offsetWidth;
+      portfolioTrack.style.transform = `translateX(-${portfolioIndex * cardWidth}px)`;
+    }
+  
+    // Auto-slide every 2 seconds
+    function startAutoSlide() {
+      stopAutoSlide(); // clear any previous
+      autoSlideInterval = setInterval(() => {
+        moveToPortfolio(portfolioIndex + 1);
+      }, 2000);
+    }
+  
+    function stopAutoSlide() {
+      if (autoSlideInterval) {
+        clearInterval(autoSlideInterval);
+        autoSlideInterval = null;
+      }
+    }
+  
+    // Manual swipe handling
+    let startX = 0;
+    let endX = 0;
+  
+    portfolioTrack.addEventListener('touchstart', (e) => {
+      stopAutoSlide(); // pause auto slide while swiping
+      startX = e.touches[0].clientX;
+    });
+  
+    portfolioTrack.addEventListener('touchmove', (e) => {
+      endX = e.touches[0].clientX;
+    });
+  
+    portfolioTrack.addEventListener('touchend', () => {
+      const swipeDistance = startX - endX;
+  
+      if (swipeDistance > 50) {
+        moveToPortfolio(portfolioIndex + 1); // swipe left
+      } else if (swipeDistance < -50) {
+        moveToPortfolio(portfolioIndex - 1); // swipe right
+      }
+  
+      startAutoSlide(); // resume auto slide
+    });
+  
+    window.addEventListener('resize', () => {
+      moveToPortfolio(portfolioIndex);
+    });
+  
+    moveToPortfolio(0); // Set initial slide
+    startAutoSlide();   // Start auto slide
+  </script>
+  
+  
   </body>
 </html>
