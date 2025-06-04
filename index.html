@@ -870,75 +870,67 @@
   </script>
   
   <script>
-    const portfolioTrack = document.getElementById('portfolioTrack');
-    const portfolioCards = document.querySelectorAll('.portfolio-card');
-    let currentIndex = 0;
-    let autoSlideInterval;
-  
-    // Auto scroll to card
-    function scrollToCard(index) {
-      const cardWidth = portfolioCards[0].offsetWidth;
-      const maxScroll = cardWidth * (portfolioCards.length - 1);
-  
-      if (index >= portfolioCards.length) {
-        currentIndex = 0;
-      } else {
-        currentIndex = index;
-      }
-  
-      portfolioTrack.scrollTo({
-        left: currentIndex * cardWidth,
-        behavior: 'smooth',
-      });
-    }
-  
-    // Start auto slide
-    function startAutoSlide() {
-      if (window.innerWidth <= 768) {
-        autoSlideInterval = setInterval(() => {
-          scrollToCard(currentIndex + 1);
-        }, 2000);
-      }
-    }
-  
-    // Manual swipe support
-    let startX = 0;
-    let endX = 0;
-  
-    portfolioTrack.addEventListener('touchstart', (e) => {
-      startX = e.touches[0].clientX;
-      if (autoSlideInterval) clearInterval(autoSlideInterval);
-    });
-  
-    portfolioTrack.addEventListener('touchmove', (e) => {
-      endX = e.touches[0].clientX;
-    });
-  
-    portfolioTrack.addEventListener('touchend', () => {
-      const deltaX = endX - startX;
-      if (deltaX > 50) {
-        scrollToCard(currentIndex - 1);
-      } else if (deltaX < -50) {
-        scrollToCard(currentIndex + 1);
-      }
-      startAutoSlide();
-    });
-  
-    // Optional: Hide thumbnail on click
-    document.querySelectorAll('.portfolio-thumbnail').forEach((thumbnail) => {
-      thumbnail.addEventListener('click', () => {
-        thumbnail.style.opacity = '0';
-        thumbnail.style.pointerEvents = 'none';
-      });
-    });
-  
-    // On resize, recalculate and reset scroll
-    window.addEventListener('resize', () => {
-      scrollToCard(currentIndex);
-    });
-  
-    // Start
-    startAutoSlide();
+const portfolioTrack = document.getElementById('portfolioTrack');
+const portfolioCards = document.querySelectorAll('.portfolio-card');
+
+let currentIndex = 0;
+const totalCards = portfolioCards.length;
+let autoSlideInterval = null;
+
+function scrollToCard(index) {
+  if (index < 0) index = totalCards - 1;
+  if (index >= totalCards) index = 0;
+  currentIndex = index;
+  const cardWidth = portfolioCards[0].offsetWidth;
+  portfolioTrack.scrollTo({
+    left: cardWidth * currentIndex,
+    behavior: 'smooth'
+  });
+}
+
+function startAutoSlide() {
+  if (window.innerWidth <= 768) {
+    autoSlideInterval = setInterval(() => {
+      scrollToCard(currentIndex + 1);
+    }, 5000); // 5 seconds
+  }
+}
+
+function stopAutoSlide() {
+  if (autoSlideInterval) {
+    clearInterval(autoSlideInterval);
+    autoSlideInterval = null;
+  }
+}
+
+let touchStartX = 0;
+let touchEndX = 0;
+
+portfolioTrack.addEventListener('touchstart', (e) => {
+  stopAutoSlide();
+  touchStartX = e.touches[0].clientX;
+});
+
+portfolioTrack.addEventListener('touchmove', (e) => {
+  touchEndX = e.touches[0].clientX;
+});
+
+portfolioTrack.addEventListener('touchend', () => {
+  const swipeDistance = touchStartX - touchEndX;
+  if (swipeDistance > 50) {
+    scrollToCard(currentIndex + 1);
+  } else if (swipeDistance < -50) {
+    scrollToCard(currentIndex - 1);
+  }
+  startAutoSlide();
+});
+
+window.addEventListener('resize', () => {
+  scrollToCard(currentIndex);
+});
+
+startAutoSlide();
+
   </script>
   
   
