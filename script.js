@@ -55,62 +55,56 @@ testimonialTrack.addEventListener('touchend', () => {
 
 
 
-  const portfolioTrack = document.getElementById('portfolioTrack');
-  const cards = document.querySelectorAll('.portfolio-card');
-  const totalCards = cards.length;
-  let portfolioIndex = 0;
+const portfolioTrack = document.getElementById('portfolioTrack');
+let portfolioIndex = 0;
+const totalCards = portfolioTrack.children.length;
 
-  // Function to move to a specific card
-  function moveTo(index) {
-    if (index < 0) index = totalCards - 1;
-    if (index >= totalCards) index = 0;
-    portfolioIndex = index;
+// Auto Slide Function
+function autoSlide() {
+  portfolioIndex = (portfolioIndex + 1) % totalCards;
+  portfolioTrack.scrollTo({
+    left: portfolioIndex * portfolioTrack.offsetWidth,
+    behavior: 'smooth'
+  });
+}
+
+let slideInterval = setInterval(autoSlide, 3000); // 3 seconds
+
+// Pause on swipe
+let startX = 0;
+let isDragging = false;
+
+portfolioTrack.addEventListener('touchstart', (e) => {
+  startX = e.touches[0].clientX;
+  clearInterval(slideInterval); // Pause auto-slide
+  isDragging = true;
+});
+
+portfolioTrack.addEventListener('touchmove', (e) => {
+  if (!isDragging) return;
+  let currentX = e.touches[0].clientX;
+  let diffX = startX - currentX;
+
+  if (Math.abs(diffX) > 50) {
+    if (diffX > 0) {
+      portfolioIndex = (portfolioIndex + 1) % totalCards;
+    } else {
+      portfolioIndex = (portfolioIndex - 1 + totalCards) % totalCards;
+    }
+
     portfolioTrack.scrollTo({
       left: portfolioIndex * portfolioTrack.offsetWidth,
       behavior: 'smooth'
     });
-  }
 
-  // Auto slide every 3 seconds
-  let slideInterval = setInterval(() => moveTo(portfolioIndex + 1), 3000);
-
-  // Pause on swipe
-  let startX = 0;
-  let isDragging = false;
-
-  portfolioTrack.addEventListener('touchstart', (e) => {
-    startX = e.touches[0].clientX;
-    clearInterval(slideInterval);
-    isDragging = true;
-  });
-
-  portfolioTrack.addEventListener('touchmove', (e) => {
-    if (!isDragging) return;
-    let currentX = e.touches[0].clientX;
-    let diffX = startX - currentX;
-
-    if (Math.abs(diffX) > 50) {
-      if (diffX > 0) moveTo(portfolioIndex + 1);
-      else moveTo(portfolioIndex - 1);
-      isDragging = false;
-    }
-  });
-
-  portfolioTrack.addEventListener('touchend', () => {
     isDragging = false;
-    slideInterval = setInterval(() => moveTo(portfolioIndex + 1), 3000);
-  });
+  }
+});
 
-  // Optional: Button support (if buttons exist)
-  document.querySelectorAll('.portfolio-scroll-btn').forEach(btn => {
-    btn.addEventListener('click', () => {
-      moveTo(portfolioIndex + 1);
-      clearInterval(slideInterval); // pause auto on manual click
-      slideInterval = setInterval(() => moveTo(portfolioIndex + 1), 3000); // resume
-    });
-  });
-
-
+portfolioTrack.addEventListener('touchend', () => {
+  isDragging = false;
+  slideInterval = setInterval(autoSlide, 3000); // Resume auto-slide
+});
 
 
 
