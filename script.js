@@ -57,53 +57,42 @@ testimonialTrack.addEventListener('touchend', () => {
 
 const portfolioTrack = document.getElementById('portfolioTrack');
 const portfolioCards = document.querySelectorAll('.portfolio-card');
+let portfolioIndex = 0;
 
-let portfolioCurrentIndex = 0;
-
-// Move to a specific index
-function scrollToPortfolio(index) {
+function moveToPortfolio(index) {
+  const totalCards = portfolioCards.length;
+  if (index < 0) index = totalCards - 1;
+  if (index >= totalCards) index = 0;
+  portfolioIndex = index;
   const cardWidth = portfolioCards[0].offsetWidth;
-  portfolioTrack.style.transform = `translateX(-${index * cardWidth}px)`;
+  portfolioTrack.style.transform = `translateX(-${portfolioIndex * cardWidth}px)`;
 }
 
-// Auto slide every 3 seconds on mobile
-function startPortfolioAutoSlide() {
-  if (window.innerWidth <= 768) {
-    setInterval(() => {
-      portfolioCurrentIndex = (portfolioCurrentIndex + 1) % portfolioCards.length;
-      scrollToPortfolio(portfolioCurrentIndex);
-    }, 3000);
-  }
-}
-startPortfolioAutoSlide();
-
-// Swipe handling
-let portfolioTouchStartX = 0;
-let portfolioTouchEndX = 0;
+// Manual swipe
+let startX = 0;
+let endX = 0;
 
 portfolioTrack.addEventListener('touchstart', (e) => {
-  portfolioTouchStartX = e.touches[0].clientX;
+  startX = e.touches[0].clientX;
 });
 
 portfolioTrack.addEventListener('touchmove', (e) => {
-  portfolioTouchEndX = e.touches[0].clientX;
+  endX = e.touches[0].clientX;
 });
 
 portfolioTrack.addEventListener('touchend', () => {
-  const swipeDistance = portfolioTouchStartX - portfolioTouchEndX;
+  const swipeDistance = startX - endX;
 
   if (swipeDistance > 50) {
-    portfolioCurrentIndex = (portfolioCurrentIndex + 1) % portfolioCards.length;
-    scrollToPortfolio(portfolioCurrentIndex);
+    moveToPortfolio(portfolioIndex + 1); // swipe left
   } else if (swipeDistance < -50) {
-    portfolioCurrentIndex = (portfolioCurrentIndex - 1 + portfolioCards.length) % portfolioCards.length;
-    scrollToPortfolio(portfolioCurrentIndex);
+    moveToPortfolio(portfolioIndex - 1); // swipe right
   }
 });
 
-// Maintain correct position on resize
+// Responsive adjustment
 window.addEventListener('resize', () => {
-  scrollToPortfolio(portfolioCurrentIndex);
+  moveToPortfolio(portfolioIndex);
 });
 
 
