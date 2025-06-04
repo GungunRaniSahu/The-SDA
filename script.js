@@ -57,7 +57,6 @@ testimonialTrack.addEventListener('touchend', () => {
 
 //portfolio
 
-
 const portfolioTrack = document.getElementById('portfolioTrack');
 const portfolioCards = document.querySelectorAll('.portfolio-card');
 const totalCards = portfolioCards.length;
@@ -65,42 +64,96 @@ let currentIndex = 0;
 let autoSlideInterval = null;
 
 function scrollToCard(index) {
-if (index < 0) index = totalCards - 1;
-if (index >= totalCards) index = 0;
-currentIndex = index;
-const cardWidth = portfolioCards[0].offsetWidth;
+  if (index < 0) index = totalCards - 1;
+  if (index >= totalCards) index = 0;
+  currentIndex = index;
+  const cardWidth = portfolioCards[0].offsetWidth;
 
-portfolioTrack.scrollTo({
-left: cardWidth * currentIndex,
-behavior: 'smooth',
-});
+  portfolioTrack.scrollTo({
+    left: cardWidth * currentIndex,
+    behavior: 'smooth',
+  });
 }
 
 function startAutoSlide() {
-autoSlideInterval = setInterval(() => {
-scrollToCard(currentIndex + 1);
-}, 5000);
+  if (!autoSlideInterval) {
+    autoSlideInterval = setInterval(() => {
+      scrollToCard(currentIndex + 1);
+    }, 5000);
+  }
 }
 
 function stopAutoSlide() {
-if (autoSlideInterval) {
-clearInterval(autoSlideInterval);
-autoSlideInterval = null;
-}
+  if (autoSlideInterval) {
+    clearInterval(autoSlideInterval);
+    autoSlideInterval = null;
+  }
 }
 
+// Scroll to current card on resize to keep alignment
 window.addEventListener('resize', () => {
-scrollToCard(currentIndex);
+  scrollToCard(currentIndex);
 });
 
+// Start auto sliding initially
 startAutoSlide();
 
+// Pause auto-slide and play video on clicking thumbnail
 document.querySelectorAll('.portfolio-thumbnail').forEach(thumbnail => {
-thumbnail.addEventListener('click', () => {
-thumbnail.style.opacity = '0';
-thumbnail.style.pointerEvents = 'none';
-stopAutoSlide();
+  thumbnail.addEventListener('click', () => {
+    thumbnail.style.opacity = '0';
+    thumbnail.style.pointerEvents = 'none'; // So it can't be clicked again
+    stopAutoSlide();
+  });
 });
+const portfolioTrack = document.getElementById('portfolioTrack');
+const portfolioCards = document.querySelectorAll('.portfolio-card');
+const totalCards = portfolioCards.length;
+let currentIndex = 0;
+let autoSlideInterval = null;
+
+function scrollToCard(index) {
+  if (index < 0) index = totalCards - 1;
+  if (index >= totalCards) index = 0;
+  currentIndex = index;
+  const cardWidth = portfolioCards[0].offsetWidth;
+
+  portfolioTrack.scrollTo({
+    left: cardWidth * currentIndex,
+    behavior: 'smooth',
+  });
+}
+
+function startAutoSlide() {
+  if (!autoSlideInterval) {
+    autoSlideInterval = setInterval(() => {
+      scrollToCard(currentIndex + 1);
+    }, 5000);
+  }
+}
+
+function stopAutoSlide() {
+  if (autoSlideInterval) {
+    clearInterval(autoSlideInterval);
+    autoSlideInterval = null;
+  }
+}
+
+// Scroll to current card on resize to keep alignment
+window.addEventListener('resize', () => {
+  scrollToCard(currentIndex);
+});
+
+// Start auto sliding initially
+startAutoSlide();
+
+// Pause auto-slide and play video on clicking thumbnail
+document.querySelectorAll('.portfolio-thumbnail').forEach(thumbnail => {
+  thumbnail.addEventListener('click', () => {
+    thumbnail.style.opacity = '0';
+    thumbnail.style.pointerEvents = 'none'; // So it can't be clicked again
+    stopAutoSlide();
+  });
 });
 
 
