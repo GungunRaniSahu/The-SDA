@@ -888,11 +888,18 @@ function scrollToCard(index) {
   });
 }
 
+// Detect closest card based on current scroll position
+function updateCurrentIndexByScroll() {
+  const scrollLeft = portfolioTrack.scrollLeft;
+  const cardWidth = portfolioCards[0].offsetWidth;
+  currentIndex = Math.round(scrollLeft / cardWidth);
+}
+
 function startAutoSlide() {
   if (window.innerWidth <= 768) {
     autoSlideInterval = setInterval(() => {
       scrollToCard(currentIndex + 1);
-    }, 5000); // 5 seconds
+    }, 5000);
   }
 }
 
@@ -917,11 +924,19 @@ portfolioTrack.addEventListener('touchmove', (e) => {
 
 portfolioTrack.addEventListener('touchend', () => {
   const swipeDistance = touchStartX - touchEndX;
+
+  // Before deciding where to go, update currentIndex based on current scroll position
+  updateCurrentIndexByScroll();
+
   if (swipeDistance > 50) {
     scrollToCard(currentIndex + 1);
   } else if (swipeDistance < -50) {
     scrollToCard(currentIndex - 1);
+  } else {
+    // No big swipe — snap back to current card
+    scrollToCard(currentIndex);
   }
+
   startAutoSlide();
 });
 
@@ -930,6 +945,7 @@ window.addEventListener('resize', () => {
 });
 
 startAutoSlide();
+
 
   </script>
   
