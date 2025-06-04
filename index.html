@@ -872,65 +872,34 @@
   <script>
     const portfolioTrack = document.getElementById('portfolioTrack');
     const portfolioCards = document.querySelectorAll('.portfolio-card');
+  
     let portfolioIndex = 0;
-    let autoSlideInterval = null;
   
-    function moveToPortfolio(index) {
-      const totalCards = portfolioCards.length;
-      if (index < 0) index = totalCards - 1;
-      if (index >= totalCards) index = 0;
-      portfolioIndex = index;
+    function scrollToPortfolio(index) {
       const cardWidth = portfolioCards[0].offsetWidth;
-      portfolioTrack.style.transform = `translateX(-${portfolioIndex * cardWidth}px)`;
+      portfolioTrack.scrollTo({
+        left: index * cardWidth,
+        behavior: 'smooth'
+      });
     }
   
-    // Auto-slide every 2 seconds
-    function startAutoSlide() {
-      stopAutoSlide(); // clear any previous
-      autoSlideInterval = setInterval(() => {
-        moveToPortfolio(portfolioIndex + 1);
-      }, 2000);
-    }
-  
-    function stopAutoSlide() {
-      if (autoSlideInterval) {
-        clearInterval(autoSlideInterval);
-        autoSlideInterval = null;
+    function startPortfolioAutoSlide() {
+      if (window.innerWidth <= 768) {
+        setInterval(() => {
+          portfolioIndex = (portfolioIndex + 1) % portfolioCards.length;
+          scrollToPortfolio(portfolioIndex);
+        }, 2000);
       }
     }
   
-    // Manual swipe handling
-    let startX = 0;
-    let endX = 0;
-  
-    portfolioTrack.addEventListener('touchstart', (e) => {
-      stopAutoSlide(); // pause auto slide while swiping
-      startX = e.touches[0].clientX;
-    });
-  
-    portfolioTrack.addEventListener('touchmove', (e) => {
-      endX = e.touches[0].clientX;
-    });
-  
-    portfolioTrack.addEventListener('touchend', () => {
-      const swipeDistance = startX - endX;
-  
-      if (swipeDistance > 50) {
-        moveToPortfolio(portfolioIndex + 1); // swipe left
-      } else if (swipeDistance < -50) {
-        moveToPortfolio(portfolioIndex - 1); // swipe right
-      }
-  
-      startAutoSlide(); // resume auto slide
-    });
-  
+    // Keep alignment on resize
     window.addEventListener('resize', () => {
-      moveToPortfolio(portfolioIndex);
+      scrollToPortfolio(portfolioIndex);
     });
   
-    moveToPortfolio(0); // Set initial slide
-    startAutoSlide();   // Start auto slide
+    startPortfolioAutoSlide();
   </script>
+  
   
   
   </body>
