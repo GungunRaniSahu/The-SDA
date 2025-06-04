@@ -56,55 +56,56 @@ testimonialTrack.addEventListener('touchend', () => {
 
 
 const portfolioTrack = document.getElementById('portfolioTrack');
-let portfolioIndex = 0;
-const totalCards = portfolioTrack.children.length;
+const portfolioCards = document.querySelectorAll('.portfolio-card');
 
-// Auto Slide Function
-function autoSlide() {
-  portfolioIndex = (portfolioIndex + 1) % totalCards;
-  portfolioTrack.scrollTo({
-    left: portfolioIndex * portfolioTrack.offsetWidth,
-    behavior: 'smooth'
-  });
+let portfolioCurrentIndex = 0;
+
+// Move to a specific index
+function scrollToPortfolio(index) {
+  const cardWidth = portfolioCards[0].offsetWidth;
+  portfolioTrack.style.transform = `translateX(-${index * cardWidth}px)`;
 }
 
-let slideInterval = setInterval(autoSlide, 3000); // 3 seconds
+// Auto slide every 3 seconds on mobile
+function startPortfolioAutoSlide() {
+  if (window.innerWidth <= 768) {
+    setInterval(() => {
+      portfolioCurrentIndex = (portfolioCurrentIndex + 1) % portfolioCards.length;
+      scrollToPortfolio(portfolioCurrentIndex);
+    }, 3000);
+  }
+}
+startPortfolioAutoSlide();
 
-// Pause on swipe
-let startX = 0;
-let isDragging = false;
+// Swipe handling
+let portfolioTouchStartX = 0;
+let portfolioTouchEndX = 0;
 
 portfolioTrack.addEventListener('touchstart', (e) => {
-  startX = e.touches[0].clientX;
-  clearInterval(slideInterval); // Pause auto-slide
-  isDragging = true;
+  portfolioTouchStartX = e.touches[0].clientX;
 });
 
 portfolioTrack.addEventListener('touchmove', (e) => {
-  if (!isDragging) return;
-  let currentX = e.touches[0].clientX;
-  let diffX = startX - currentX;
-
-  if (Math.abs(diffX) > 50) {
-    if (diffX > 0) {
-      portfolioIndex = (portfolioIndex + 1) % totalCards;
-    } else {
-      portfolioIndex = (portfolioIndex - 1 + totalCards) % totalCards;
-    }
-
-    portfolioTrack.scrollTo({
-      left: portfolioIndex * portfolioTrack.offsetWidth,
-      behavior: 'smooth'
-    });
-
-    isDragging = false;
-  }
+  portfolioTouchEndX = e.touches[0].clientX;
 });
 
 portfolioTrack.addEventListener('touchend', () => {
-  isDragging = false;
-  slideInterval = setInterval(autoSlide, 3000); // Resume auto-slide
+  const swipeDistance = portfolioTouchStartX - portfolioTouchEndX;
+
+  if (swipeDistance > 50) {
+    portfolioCurrentIndex = (portfolioCurrentIndex + 1) % portfolioCards.length;
+    scrollToPortfolio(portfolioCurrentIndex);
+  } else if (swipeDistance < -50) {
+    portfolioCurrentIndex = (portfolioCurrentIndex - 1 + portfolioCards.length) % portfolioCards.length;
+    scrollToPortfolio(portfolioCurrentIndex);
+  }
 });
+
+// Maintain correct position on resize
+window.addEventListener('resize', () => {
+  scrollToPortfolio(portfolioCurrentIndex);
+});
+
 
 
 
