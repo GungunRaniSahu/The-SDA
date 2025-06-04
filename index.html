@@ -873,6 +873,7 @@
 const portfolioTrack = document.getElementById('portfolioTrack');
 const portfolioCards = portfolioTrack.children;
 const totalPortfolioCards = portfolioCards.length;
+const portfolioButtons = document.querySelectorAll('.portfolio-scroll-btn');
 
 let portfolioIndex = 0;
 let autoSlideInterval = null;
@@ -882,7 +883,7 @@ function scrollToPortfolio(index) {
   if (index >= totalPortfolioCards) index = 0;
   portfolioIndex = index;
   const cardWidth = portfolioCards[0].offsetWidth;
-  
+
   portfolioTrack.scrollTo({
     left: cardWidth * portfolioIndex,
     behavior: 'smooth',
@@ -902,6 +903,16 @@ function stopAutoSlide() {
   }
 }
 
+// Handle button clicks to navigate manually
+portfolioButtons.forEach((btn) => {
+  btn.addEventListener('click', () => {
+    stopAutoSlide(); // stop auto sliding on manual control
+    scrollToPortfolio(portfolioIndex + 1);
+    startAutoSlide(); // restart auto sliding
+  });
+});
+
+// Handle swipe gestures to navigate manually
 let touchStartX = 0;
 let touchEndX = 0;
 
@@ -917,10 +928,8 @@ portfolioTrack.addEventListener('touchmove', (e) => {
 portfolioTrack.addEventListener('touchend', () => {
   const swipeDistance = touchStartX - touchEndX;
   if (swipeDistance > 50) {
-    // swipe left -> next card
     scrollToPortfolio(portfolioIndex + 1);
   } else if (swipeDistance < -50) {
-    // swipe right -> previous card
     scrollToPortfolio(portfolioIndex - 1);
   }
   startAutoSlide();
@@ -930,8 +939,9 @@ window.addEventListener('resize', () => {
   scrollToPortfolio(portfolioIndex);
 });
 
-// start auto sliding on load
+// Start auto slide on page load
 startAutoSlide();
+
 
 
   </script>
