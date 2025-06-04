@@ -58,6 +58,53 @@ testimonialTrack.addEventListener('touchend', () => {
 //portfolio
 
 
+const portfolioTrack = document.getElementById('portfolioTrack');
+const portfolioCards = document.querySelectorAll('.portfolio-card');
+const totalCards = portfolioCards.length;
+let currentIndex = 0;
+let autoSlideInterval = null;
+
+function scrollToCard(index) {
+if (index < 0) index = totalCards - 1;
+if (index >= totalCards) index = 0;
+currentIndex = index;
+const cardWidth = portfolioCards[0].offsetWidth;
+
+portfolioTrack.scrollTo({
+left: cardWidth * currentIndex,
+behavior: 'smooth',
+});
+}
+
+function startAutoSlide() {
+autoSlideInterval = setInterval(() => {
+scrollToCard(currentIndex + 1);
+}, 5000);
+}
+
+function stopAutoSlide() {
+if (autoSlideInterval) {
+clearInterval(autoSlideInterval);
+autoSlideInterval = null;
+}
+}
+
+window.addEventListener('resize', () => {
+scrollToCard(currentIndex);
+});
+
+startAutoSlide();
+
+document.querySelectorAll('.portfolio-thumbnail').forEach(thumbnail => {
+thumbnail.addEventListener('click', () => {
+thumbnail.style.opacity = '0';
+thumbnail.style.pointerEvents = 'none';
+stopAutoSlide();
+});
+});
+
+
+
 
 //faq
 
