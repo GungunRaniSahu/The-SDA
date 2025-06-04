@@ -4,13 +4,11 @@ const testimonialScrollButtons = document.querySelectorAll('.scroll-btn');
 
 let testimonialCurrentIndex = 0;
 
-// Scroll to a specific testimonial
 function scrollToTestimonial(index) {
   const cardWidth = testimonialCards[0].offsetWidth;
   testimonialTrack.style.transform = `translateX(-${index * cardWidth}px)`;
 }
 
-// Scroll with button click
 testimonialScrollButtons.forEach((btn) => {
   btn.addEventListener('click', () => {
     testimonialCurrentIndex = (testimonialCurrentIndex + 1) % testimonialCards.length;
@@ -18,12 +16,10 @@ testimonialScrollButtons.forEach((btn) => {
   });
 });
 
-// Adjust on resize
 window.addEventListener('resize', () => {
   scrollToTestimonial(testimonialCurrentIndex);
 });
 
-// Auto-slide for mobile
 function startTestimonialAutoSlide() {
   if (window.innerWidth <= 768) {
     setInterval(() => {
@@ -34,7 +30,6 @@ function startTestimonialAutoSlide() {
 }
 startTestimonialAutoSlide();
 
-// Manual swipe
 let testimonialTouchStartX = 0;
 let testimonialTouchEndX = 0;
 
@@ -50,89 +45,70 @@ testimonialTrack.addEventListener('touchend', () => {
   const swipeDistance = testimonialTouchStartX - testimonialTouchEndX;
 
   if (swipeDistance > 50) {
-    // Swipe left
     testimonialCurrentIndex = (testimonialCurrentIndex + 1) % testimonialCards.length;
     scrollToTestimonial(testimonialCurrentIndex);
   } else if (swipeDistance < -50) {
-    // Swipe right
     testimonialCurrentIndex = (testimonialCurrentIndex - 1 + testimonialCards.length) % testimonialCards.length;
     scrollToTestimonial(testimonialCurrentIndex);
   }
 });
 
 
-const portfolioTrack = document.getElementById('portfolioTrack');
-const portfolioButtons = document.querySelectorAll('.portfolio-scroll-btn');
-let portfolioIndex = 0;
-const totalPortfolioCards = portfolioTrack.children.length;
-let autoSlideInterval = null;
 
-// Move to specific card
-function moveToPortfolio(index) {
-  if (index < 0) index = totalPortfolioCards - 1;
-  if (index >= totalPortfolioCards) index = 0;
-  portfolioIndex = index;
-  portfolioTrack.style.transform = `translateX(-${portfolioIndex * 100}%)`;
-}
+  const portfolioTrack = document.getElementById('portfolioTrack');
+  const cards = document.querySelectorAll('.portfolio-card');
+  const totalCards = cards.length;
+  let portfolioIndex = 0;
 
-// Scroll on button click
-portfolioButtons.forEach((btn) => {
-  btn.addEventListener('click', () => {
-    moveToPortfolio(portfolioIndex + 1);
+  // Function to move to a specific card
+  function moveTo(index) {
+    if (index < 0) index = totalCards - 1;
+    if (index >= totalCards) index = 0;
+    portfolioIndex = index;
+    portfolioTrack.scrollTo({
+      left: portfolioIndex * portfolioTrack.offsetWidth,
+      behavior: 'smooth'
+    });
+  }
+
+  // Auto slide every 3 seconds
+  let slideInterval = setInterval(() => moveTo(portfolioIndex + 1), 3000);
+
+  // Pause on swipe
+  let startX = 0;
+  let isDragging = false;
+
+  portfolioTrack.addEventListener('touchstart', (e) => {
+    startX = e.touches[0].clientX;
+    clearInterval(slideInterval);
+    isDragging = true;
   });
-});
 
-// Auto-slide for mobile
-function startAutoSlide() {
-  if (window.innerWidth <= 768) {
-    autoSlideInterval = setInterval(() => {
-      moveToPortfolio(portfolioIndex + 1);
-    }, 2000);
-  }
-}
+  portfolioTrack.addEventListener('touchmove', (e) => {
+    if (!isDragging) return;
+    let currentX = e.touches[0].clientX;
+    let diffX = startX - currentX;
 
-function stopAutoSlide() {
-  if (autoSlideInterval) {
-    clearInterval(autoSlideInterval);
-    autoSlideInterval = null;
-  }
-}
-
-// Touch sliding (mobile swipe)
-let startX = 0;
-let endX = 0;
-let isTouchOnIframe = false;
-
-portfolioTrack.addEventListener('touchstart', (e) => {
-  startX = e.touches[0].clientX;
-  isTouchOnIframe = e.target.classList.contains('video-overlay');
-});
-
-portfolioTrack.addEventListener('touchmove', (e) => {
-  endX = e.touches[0].clientX;
-});
-
-portfolioTrack.addEventListener('touchend', () => {
-  if (isTouchOnIframe) return;
-  if (startX - endX > 50) {
-    moveToPortfolio(portfolioIndex + 1); // swipe left
-  } else if (endX - startX > 50) {
-    moveToPortfolio(portfolioIndex - 1); // swipe right
-  }
-});
-
-
-document.querySelectorAll('.video-overlay').forEach((overlay) => {
-  overlay.addEventListener('click', () => {
-    stopAutoSlide();
-    overlay.style.display = 'none'; 
+    if (Math.abs(diffX) > 50) {
+      if (diffX > 0) moveTo(portfolioIndex + 1);
+      else moveTo(portfolioIndex - 1);
+      isDragging = false;
+    }
   });
-});
 
-// Start auto-slide
-startAutoSlide();
+  portfolioTrack.addEventListener('touchend', () => {
+    isDragging = false;
+    slideInterval = setInterval(() => moveTo(portfolioIndex + 1), 3000);
+  });
 
-
+  // Optional: Button support (if buttons exist)
+  document.querySelectorAll('.portfolio-scroll-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      moveTo(portfolioIndex + 1);
+      clearInterval(slideInterval); // pause auto on manual click
+      slideInterval = setInterval(() => moveTo(portfolioIndex + 1), 3000); // resume
+    });
+  });
 
 
 
