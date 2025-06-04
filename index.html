@@ -3,7 +3,8 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <link rel="icon" type="image/png" href="favicon.png">
+    <title>Shadow Agents</title>
     <link
       href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&amp;display=swap"
       rel="stylesheet"
@@ -67,25 +68,39 @@
         </div>
 
         <div class="col-lg-6 col-md-12">
-          <a href="https://www.youtube.com/watch?v=HTHX3xqWhn4" target="_blank">
-          <img 
-            src="Group 46.png"
-            class="img-thumbnail border-0"
-            alt="Video Thumbnail"
-          /></a>
+          <!-- Thumbnail container -->
+          <div class="video-thumbnail" onclick="playVideoInline()">
+            <img 
+              src="Group 46.png"
+              class="img-thumbnail border-0"
+              alt="Video Thumbnail"
+              style="cursor: pointer; width: 100%; height: auto;"
+            />
+          </div>
+        
+          <!-- Hidden video container -->
+          <div class="video-iframe" style="display: none;">
+            <iframe
+              width="100%"
+              height="100%"
+              src="https://www.youtube.com/embed/BRNWoSqqi-Q?autoplay=1&rel=0"
+              frameborder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowfullscreen
+            ></iframe>
+          </div>
+        
+          <!-- CTA Buttons (stay visible always) -->
           <div class="cta">
             <button class="btn">
-              <a href="https://www.youtube.com/watch?v=HTHX3xqWhn4">Watch how it works!</a>
+              <a href="https://www.youtube.com/embed/HTHX3xqWhn4" target="_blank">Watch how it works!</a>
             </button>
-            <!--<div class="cta-text">
-              Get your <br />
-              free video here.
-            </div>-->
-            <button class="btn"><a href="#contact-section">Enquiry Now</a> </button>
-
+            <button class="btn">
+              <a href="#contact-section">Enquire Now</a>
+            </button>
           </div>
-
         </div>
+        
       </div>
 
     </div>
@@ -344,7 +359,7 @@
         </div>
 
         <div class="scroll-box">
-          <img src="flowfin.png" alt="" class="flow-img">
+          <img src="floww.png" alt="" class="flow-img">
         </div>
       </div>
     </section>
@@ -356,48 +371,69 @@
         <h2 class="portfolio-heading">
           Portfolio <span class="highlight">Samples</span>
         </h2>
-
+    
         <div class="portfolio-wrapper">
           <div class="portfolio-track" id="portfolioTrack">
+            <!-- Card 1 -->
             <div class="portfolio-card">
-              <iframe src="https://www.youtube.com/embed/f6FzdcrVlZU?si=yx-xQErnAhy3KXUj" style="top: 0; left: 0; width: 100%; height: 100%; position: absolute; border: 0;" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"  allowfullscreen></iframe>         <button class="portfolio-scroll-btn">
-                <img src="Group 35.png" alt="Next" />
-              </button>
-            </div>
 
-            <div class="portfolio-card"><iframe src="https://www.youtube.com/embed/_nKFmZ4LFok?rel=0" style="top: 0; left: 0; width: 100%; height: 100%; position: absolute; border: 0;" allowfullscreen scrolling="no" allow="accelerometer *; clipboard-write *; encrypted-media *; gyroscope *; picture-in-picture *; web-share *;"></iframe>
-              <iframe src="https://www.youtube.com/embed/_ixujZY-XPE?rel=0" style="top: 0; left: 0; width: 100%; height: 100%; position: absolute; border: 0;" allowfullscreen scrolling="no" allow="accelerometer *; clipboard-write *; encrypted-media *; gyroscope *; picture-in-picture *; web-share *;"></iframe>
+              <div class="video-wrapper">
+                <img src="sampurna.jpg" alt="Video Thumbnail" class="portfolio-thumbnail" />
+                <iframe src="https://www.youtube.com/embed/f6FzdcrVlZU?si=yx-xQErnAhy3KXUj" allowfullscreen allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"></iframe>
+                
+                <div class="video-overlay"></div>
+              </div>
               <button class="portfolio-scroll-btn">
                 <img src="Group 35.png" alt="Next" />
               </button>
             </div>
-
+    
+            <!-- Card 2 -->
             <div class="portfolio-card">
-              <iframe 
-              src="https://www.youtube.com/embed/n0BqaVzmc9A?rel=0"
-              title="YouTube video player" 
-              allowfullscreen 
-              style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0;" 
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-              referrerpolicy="strict-origin-when-cross-origin">
-            </iframe>
+              <div class="video-wrapper">
+                <img src="aman.jpg" alt="Video Thumbnail" class="portfolio-thumbnail" />
+                <iframe src="https://www.youtube.com/embed/71ifq7QFonc?rel=0" style="top: 0; left: 0; width: 100%; height: 100%; position: absolute; border: 0;" allowfullscreen scrolling="no" allow="accelerometer *; clipboard-write *; encrypted-media *; gyroscope *; picture-in-picture *; web-share *;"></iframe>
+                <div class="video-overlay"></div>
+              </div>
               <button class="portfolio-scroll-btn">
                 <img src="Group 35.png" alt="Next" />
               </button>
             </div>
-
+    
+            <!-- Card 3 -->
             <div class="portfolio-card">
-              <iframe src="https://www.youtube.com/embed/5nQHZzyBYik?rel=0" style="top: 0; left: 0; width: 100%; height: 100%; position: absolute; border: 0;" allowfullscreen scrolling="no" allow="accelerometer *; clipboard-write *; encrypted-media *; gyroscope *; picture-in-picture *; web-share *;"></iframe>
+              <div class="video-wrapper">
+                <img src="revant.jpg" alt="Video Thumbnail" class="portfolio-thumbnail" />
+
+                <iframe src="https://www.youtube.com/embed/xd0HgX-5jYY?rel=0" style="top: 0; left: 0; width: 100%; height: 100%; position: absolute; border: 0;" allowfullscreen scrolling="no" allow="accelerometer *; clipboard-write *; encrypted-media *; gyroscope *; picture-in-picture *; web-share *;"></iframe>
+                <div class="video-overlay"></div>
+              </div>
+              <button class="portfolio-scroll-btn">
+                <img src="Group 35.png" alt="Next" />
+              </button>
+            </div>
+    
+            <!-- Card 4 -->
+            <div class="portfolio-card">
+              <div class="video-wrapper">
+                <img src="revant.jpg" alt="Video Thumbnail" class="portfolio-thumbnail" />
+
+                <iframe src="https://www.youtube.com/embed/VTFFaU1tllY?rel=0" style="top: 0; left: 0; width: 100%; height: 100%; position: absolute; border: 0;" allowfullscreen scrolling="no" allow="accelerometer *; clipboard-write *; encrypted-media *; gyroscope *; picture-in-picture *; web-share *;"></iframe>
+                <div class="video-overlay"></div>
+              </div>
               <button class="portfolio-scroll-btn">
                 <img src="Group 35.png" alt="Next" />
               </button>
             </div>
           </div>
-          <div class="see-more"><a href="https://drive.google.com/drive/folders/1zh6d33L2jhCr43pyXz2b8Bds6QGxI4gR" target="_blank">See More</a></div>
+          <div class="see-more">
+            <a href="https://drive.google.com/drive/folders/1zh6d33L2jhCr43pyXz2b8Bds6QGxI4gR" target="_blank">See More</a>
+          </div>
         </div>
         <div class="gradient-bar"></div>
       </div>
     </section>
+    
 
     <!-- testimonial -->
     <section class="testimonial-section section">
@@ -596,15 +632,18 @@
               <span class="description">in-house studio</span>
             </div>-->
             <div class="sm-boxes">
-              <p class="number">80+</p> 
-              <span class="description">Employees</span>
+              <p class="number">100+</p> 
+              <span class="description">Team Members</span>
             </div>
             <div class="sm-boxes">
               <p class="number">1500+</p> 
               <span class="description">videos edited/month</span>
             </div>
-            <div class="sm-boxes"> <span>500+ active agency delegations by 2028</span></div>
-            <div class="sm-boxes"><span>Backed by Blue Minch- a 9 Figure Agency</span></div>
+             <div class="sm-boxes">
+            <p class="number">500+</p> 
+              <span class="description">active agency delegations by 2028</span>
+              </div>
+            <div class="sm-boxes"><span>Backed by Blue Minch- a 9 Figure Marketing Agency</span></div>
           </div>
         </div>
         <div class="gradient-bar"></div>
@@ -630,7 +669,10 @@
                 Watch the free video to see how top agencies outsource editing
                 and grow faster.
               </p>-->
-<section id="contact-section">
+
+              <section id="contact-section">
+                <h2 class="text-center fw-bold mb-3">Get in Touch</h2>
+
   <form 
     id="contact-form"
     action="https://formsubmit.co/Shayan@blueminch.com" 
@@ -691,7 +733,7 @@
 <a href="https://wa.me/918101414114?text=Hi%2C%20I%E2%80%99m%20interested%20in%20your%20services.%20Can%20we%20talk%3F" 
    class="whatsapp-float" 
    target="_blank">
-   <img src="whatsapp.png" alt="Chat on WhatsApp" />
+   <img src="wpp.png" alt="Chat on WhatsApp" />
 </a>
 
 <!--<div class="container">
@@ -769,7 +811,7 @@
     <div class="container mb-con">
         <div class="social-icons2">
             <a
-                href="https://business.facebook.com/latest/?asset_id=537182212821345&business_id=1038278881086242&nav_ref=profile_plus_admin_tool "
+                href="https://www.facebook.com/people/Shadow-Agency/61574427526599/?rdid=Tb6z0sG3F9gGlATn&share_url=https%3A%2F%2Fwww.facebook.com%2Fshare%2F1C7c3tNTaQ%2F "
                 ><img src="facebook.svg" alt="Facebook"
             /></a>
             <a
@@ -806,5 +848,27 @@
     }, 500);
   }
 </script>
+
+<script>
+  function playVideoInline() {
+    const thumbnail = document.querySelector('.video-thumbnail');
+    const iframe = document.querySelector('.video-iframe');
+    thumbnail.style.display = 'none';
+    iframe.style.display = 'block';
+  }
+  </script>
+  
+
+  <script>
+    document.querySelectorAll('.portfolio-card').forEach(card => {
+      const thumbnail = card.querySelector('.portfolio-thumbnail');
+      thumbnail.addEventListener('click', () => {
+        thumbnail.style.opacity = '0';
+        thumbnail.style.pointerEvents = 'none';
+      });
+    });
+  </script>
+  
+
   </body>
 </html>
