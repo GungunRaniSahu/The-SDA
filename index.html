@@ -71,7 +71,7 @@
           <!-- Thumbnail container -->
           <div class="video-thumbnail" onclick="playVideoInline()">
             <img 
-              src="Group 46.png"
+              src="shayan.jpg"
               class="img-thumbnail border-0"
               alt="Video Thumbnail"
               style="cursor: pointer; width: 100%; height: auto;"
@@ -871,36 +871,28 @@
   
   <script>
 const portfolioTrack = document.getElementById('portfolioTrack');
-const portfolioCards = document.querySelectorAll('.portfolio-card');
+const portfolioCards = portfolioTrack.children;
+const totalPortfolioCards = portfolioCards.length;
 
-let currentIndex = 0;
-const totalCards = portfolioCards.length;
+let portfolioIndex = 0;
 let autoSlideInterval = null;
 
-function scrollToCard(index) {
-  if (index < 0) index = totalCards - 1;
-  if (index >= totalCards) index = 0;
-  currentIndex = index;
+function scrollToPortfolio(index) {
+  if (index < 0) index = totalPortfolioCards - 1;
+  if (index >= totalPortfolioCards) index = 0;
+  portfolioIndex = index;
   const cardWidth = portfolioCards[0].offsetWidth;
+  
   portfolioTrack.scrollTo({
-    left: cardWidth * currentIndex,
-    behavior: 'smooth'
+    left: cardWidth * portfolioIndex,
+    behavior: 'smooth',
   });
 }
 
-// Detect closest card based on current scroll position
-function updateCurrentIndexByScroll() {
-  const scrollLeft = portfolioTrack.scrollLeft;
-  const cardWidth = portfolioCards[0].offsetWidth;
-  currentIndex = Math.round(scrollLeft / cardWidth);
-}
-
 function startAutoSlide() {
-  if (window.innerWidth <= 768) {
-    autoSlideInterval = setInterval(() => {
-      scrollToCard(currentIndex + 1);
-    }, 5000);
-  }
+  autoSlideInterval = setInterval(() => {
+    scrollToPortfolio(portfolioIndex + 1);
+  }, 5000);
 }
 
 function stopAutoSlide() {
@@ -924,26 +916,21 @@ portfolioTrack.addEventListener('touchmove', (e) => {
 
 portfolioTrack.addEventListener('touchend', () => {
   const swipeDistance = touchStartX - touchEndX;
-
-  // Before deciding where to go, update currentIndex based on current scroll position
-  updateCurrentIndexByScroll();
-
   if (swipeDistance > 50) {
-    scrollToCard(currentIndex + 1);
+    // swipe left -> next card
+    scrollToPortfolio(portfolioIndex + 1);
   } else if (swipeDistance < -50) {
-    scrollToCard(currentIndex - 1);
-  } else {
-    // No big swipe — snap back to current card
-    scrollToCard(currentIndex);
+    // swipe right -> previous card
+    scrollToPortfolio(portfolioIndex - 1);
   }
-
   startAutoSlide();
 });
 
 window.addEventListener('resize', () => {
-  scrollToCard(currentIndex);
+  scrollToPortfolio(portfolioIndex);
 });
 
+// start auto sliding on load
 startAutoSlide();
 
 
