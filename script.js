@@ -873,6 +873,7 @@
     const portfolioTrack = document.getElementById('portfolioTrack');
     const portfolioCards = document.querySelectorAll('.portfolio-card');
     let portfolioIndex = 0;
+    let autoSlideInterval = null;
   
     function moveToPortfolio(index) {
       const totalCards = portfolioCards.length;
@@ -883,11 +884,27 @@
       portfolioTrack.style.transform = `translateX(-${portfolioIndex * cardWidth}px)`;
     }
   
-    // Touch swipe logic
+    // Auto-slide every 2 seconds
+    function startAutoSlide() {
+      stopAutoSlide(); // clear any previous
+      autoSlideInterval = setInterval(() => {
+        moveToPortfolio(portfolioIndex + 1);
+      }, 2000);
+    }
+  
+    function stopAutoSlide() {
+      if (autoSlideInterval) {
+        clearInterval(autoSlideInterval);
+        autoSlideInterval = null;
+      }
+    }
+  
+    // Manual swipe handling
     let startX = 0;
     let endX = 0;
   
     portfolioTrack.addEventListener('touchstart', (e) => {
+      stopAutoSlide(); // pause auto slide while swiping
       startX = e.touches[0].clientX;
     });
   
@@ -903,16 +920,18 @@
       } else if (swipeDistance < -50) {
         moveToPortfolio(portfolioIndex - 1); // swipe right
       }
+  
+      startAutoSlide(); // resume auto slide
     });
   
-    // Resize recalculation
     window.addEventListener('resize', () => {
       moveToPortfolio(portfolioIndex);
     });
   
-    // Initial position
-    moveToPortfolio(0);
+    moveToPortfolio(0); // Set initial slide
+    startAutoSlide();   // Start auto slide
   </script>
+  
   
   </body>
 </html>
