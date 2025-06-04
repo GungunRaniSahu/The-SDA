@@ -872,33 +872,75 @@
   <script>
     const portfolioTrack = document.getElementById('portfolioTrack');
     const portfolioCards = document.querySelectorAll('.portfolio-card');
+    let currentIndex = 0;
+    let autoSlideInterval;
   
-    let portfolioIndex = 0;
-  
-    function scrollToPortfolio(index) {
+    // Auto scroll to card
+    function scrollToCard(index) {
       const cardWidth = portfolioCards[0].offsetWidth;
+      const maxScroll = cardWidth * (portfolioCards.length - 1);
+  
+      if (index >= portfolioCards.length) {
+        currentIndex = 0;
+      } else {
+        currentIndex = index;
+      }
+  
       portfolioTrack.scrollTo({
-        left: index * cardWidth,
-        behavior: 'smooth'
+        left: currentIndex * cardWidth,
+        behavior: 'smooth',
       });
     }
   
-    function startPortfolioAutoSlide() {
+    // Start auto slide
+    function startAutoSlide() {
       if (window.innerWidth <= 768) {
-        setInterval(() => {
-          portfolioIndex = (portfolioIndex + 1) % portfolioCards.length;
-          scrollToPortfolio(portfolioIndex);
+        autoSlideInterval = setInterval(() => {
+          scrollToCard(currentIndex + 1);
         }, 2000);
       }
     }
   
-    // Keep alignment on resize
-    window.addEventListener('resize', () => {
-      scrollToPortfolio(portfolioIndex);
+    // Manual swipe support
+    let startX = 0;
+    let endX = 0;
+  
+    portfolioTrack.addEventListener('touchstart', (e) => {
+      startX = e.touches[0].clientX;
+      if (autoSlideInterval) clearInterval(autoSlideInterval);
     });
   
-    startPortfolioAutoSlide();
+    portfolioTrack.addEventListener('touchmove', (e) => {
+      endX = e.touches[0].clientX;
+    });
+  
+    portfolioTrack.addEventListener('touchend', () => {
+      const deltaX = endX - startX;
+      if (deltaX > 50) {
+        scrollToCard(currentIndex - 1);
+      } else if (deltaX < -50) {
+        scrollToCard(currentIndex + 1);
+      }
+      startAutoSlide();
+    });
+  
+    // Optional: Hide thumbnail on click
+    document.querySelectorAll('.portfolio-thumbnail').forEach((thumbnail) => {
+      thumbnail.addEventListener('click', () => {
+        thumbnail.style.opacity = '0';
+        thumbnail.style.pointerEvents = 'none';
+      });
+    });
+  
+    // On resize, recalculate and reset scroll
+    window.addEventListener('resize', () => {
+      scrollToCard(currentIndex);
+    });
+  
+    // Start
+    startAutoSlide();
   </script>
+  
   
   
   
