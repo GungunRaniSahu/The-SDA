@@ -1,207 +1,918 @@
-const testimonialTrack = document.getElementById('testimonialTrack');
-const testimonialCards = document.querySelectorAll('.testimonial-card');
-const testimonialScrollButtons = document.querySelectorAll('.scroll-btn');
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/png" href="favicon.png">
+    <title>Shadow Agents</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-4Q6Gf2aSP4eDXB8Miphtr37CMZZQ5oXLH2yaXMJ2w8e2ZtHTl7GptT4jmndRuHDT"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
 
-let testimonialCurrentIndex = 0;
+  <body>
+    <div class="main-header">
+      <header class="container">
+        <div
+          class="d-flex justify-content-between align-items-center text-center"
+        >
+          <div class="logo">
+            <img src="logo.png" alt="The Shadow Agents Logo" />
+          </div>
+          <nav class="">
+            <ul class="nav-links">
+              <li><a href="#" class="nav-link active">Home</a></li>
+              <li><a href="#portfolio" class="nav-link">Sample Videos</a></li>
+              <li><a href="#contact" class="nav-link">Contact</a></li>
+            </ul>
+            <div class="menu-toggle">
+              <span></span>
+              <span></span>
+              <span></span>
+            </div>
+          </nav>
+        </div>
+      </header>
+    </div>
 
-function scrollToTestimonial(index) {
-  const cardWidth = testimonialCards[0].offsetWidth;
-  testimonialTrack.style.transform = `translateX(-${index * cardWidth}px)`;
-}
+    <div class="hero-bg">
+    <div class="container hero-padding">
+      <div class="row flex-lg-nowrap">
+        <div class="col-lg-6 col-md-12">
+          <div class="d-flex flex-column justify-content-between left-text">
+            <div class="hero-text">
+              <h2>
+                Agencies who scale <br />
+                don’t do editing.
+              </h2>
+              <p class="quote">
+                They delegate <br />
+                it smartly.
+              </p>
+            </div>
+            <div class="bottom-text">
+              <p class="subtext">
+                Let us be your <br />
+                silent growth engine.
+              </p>
+            </div>
+          </div>
+        </div>
 
-testimonialScrollButtons.forEach((btn) => {
-  btn.addEventListener('click', () => {
-    testimonialCurrentIndex = (testimonialCurrentIndex + 1) % testimonialCards.length;
-    scrollToTestimonial(testimonialCurrentIndex);
-  });
-});
+        <div class="col-lg-6 col-md-12">
+          <!-- Thumbnail container -->
+          <div class="video-thumbnail" onclick="playVideoInline()">
+            <img 
+              src="Group 46.png"
+              class="img-thumbnail border-0"
+              alt="Video Thumbnail"
+              style="cursor: pointer; width: 100%; height: auto;"
+            />
+          </div>
+        
+          <!-- Hidden video container -->
+          <div class="video-iframe" style="display: none;">
+            <iframe
+              width="100%"
+              height="100%"
+              src="https://www.youtube.com/embed/BRNWoSqqi-Q?autoplay=1&rel=0"
+              frameborder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowfullscreen
+            ></iframe>
+          </div>
+        
+          <!-- CTA Buttons (stay visible always) -->
+          <div class="cta">
+            <button class="btn">
+              <a href="https://www.youtube.com/embed/HTHX3xqWhn4" target="_blank">Watch how it works!</a>
+            </button>
+            <button class="btn">
+              <a href="#contact-section">Enquire Now</a>
+            </button>
+          </div>
+        </div>
+        
+      </div>
 
-window.addEventListener('resize', () => {
-  scrollToTestimonial(testimonialCurrentIndex);
-});
+    </div>
+    </div>
 
-function startTestimonialAutoSlide() {
-  if (window.innerWidth <= 768) {
-    setInterval(() => {
-      testimonialCurrentIndex = (testimonialCurrentIndex + 1) % testimonialCards.length;
-      scrollToTestimonial(testimonialCurrentIndex);
-    }, 2000);
+    <section class="fail-section section">
+      <div class="container">
+        <div class="row flex-lg-nowrap align-items-center">
+          <div class="col-lg-6 col-md-6">
+            <h1 class="main-heading">Why Most</h1>
+            <span class="main-heading2"
+              >Outsourcing<br />
+              <span class="highlights"> Fails?</span></span
+            >
+          </div>
+
+          <div class="col-lg-6 col-md-6">
+            <div class="right">
+              <div class="box">
+                <span class="cross">X</span> No dedicated point of contact
+              </div>
+              <div class="box">
+                <span class="cross">X</span> Editors juggling <br />5+ clients
+              </div>
+              <div class="box">
+                <span class="cross">X</span> Missed deadlines
+              </div>
+              <div class="box">
+                <span class="cross">X</span> Inconsistent quality
+              </div>
+              <div class="box">
+                <span class="cross">X</span> Endless revision loops
+              </div>
+              <div class="box">
+                <span class="cross">X</span> No structure, <br />no
+                accountability
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- <div class="left">
+            <h1 class="main-heading" >Why Most</h1>
+            <span class="main-heading2">Outsourcing <span class="highlights"> Fails?</span></span>
+        </div> -->
+      </div>
+      <div class="gradient-bar"></div>
+    </section>
+
+    <section class="section">
+      <div class="container shadow-agent">
+        <div class="row">
+          <div class="col-lg-6">
+            <div class="shadow-heading">
+              <span class="heading-line">How</span>
+              <span class="heading-line">Shadow Agents</span>
+              <span class="highlight-gradient heading-line">Fix This?</span>
+            </div>
+          </div>
+          <div class="col-lg-6">
+            <p class="SA_description">
+              Most agencies fail to scale because their video editing is
+              disorganized, relies on unreliable freelancers, or gets trapped in
+              revision cycles.
+            </p>
+          </div>
+        </div>
+      </div>
+    <!--</section>-->
+
+    <!-- accondong -->
+     <!--<section class="section acc">-->
+     <div class="container">
+      <h3 class="system-heading">
+        Here's how <span class="system-break">our system solves</span> the root problems:
+      </h3>
+      
+        <div class="card-container">
+            <div class="info-card">
+                <!--<input type="checkbox" class="toggle"> -->
+                <div class="card-header" title="Click here">
+
+        
+                <span class="feature-heading">
+                    <!--<img src="Brand_manager_touchpoint.png" class="f11" alt="">-->
+                <img src="Group.svg" class="img-svg">
+                    <span class="feature-line">Daily Brand Manager</span>
+                    <span class="feature-line">Touchpoints</span>
+                </span>
+                
+                <img src="arrw.png" class="arw">
+                <!-- <span class="arrow-icon">➥</span>-->
+                </div>
+                <div class="card-body">
+                <p>
+                    <span class="dot">●</span> You get a dedicated Brand Manager who meets with you twice daily—once for new briefs and once for feedback. Two calls per day ensure minimal back-and-forth and full alignment on briefs and revisions. Your Brand Manager becomes your remote project manager.
+                </p>
+                </div>
+            
+            </div>
+            
+        <!-- Unlimited Bandwidth -->
+        <div class="info-card">
+            <div class="card-header">
+
+            <span class="feature-heading">         
+                <img src="infinity 1.svg" class="img-svg">
+        
+                <span class="feature-line">Unlimited Bandwidth</span>
+                <span class="feature-line">System</span>
+            </span>
+            <img src="arrw.png" alt="arrow" class="arw" />
+            </div>
+            <div class="card-body">
+            <p >
+                <span class="dot">●</span> A Dedicated Team handles your account exclusively, so there’s no multitasking or missed context. While the dedicated team handles all routine work, the ‘Variable Team’ and the ‘Emergency Team’ handles workload spikes, ensuring nothing slips.
+            </p>
+            </div>
+        
+        </div>
+        
+        <!-- 3-Layer Quality Check -->
+        <div class="info-card">
+            <div class="card-header">
+
+            <span class="feature-heading">
+                <img src="layer 2.svg" class="img-svg">
+
+                <span class="feature-line">Layer Quality</span>
+                <span class="feature-line">Check</span>
+            </span>
+            <img src="arrw.png" alt="arrow" class="arw" />
+            </div>
+            <div class="card-body">
+            <p >
+                <span class="dot">●</span> Every video asset is reviewed by the Team Lead, HOD and your Brand Manager before it reaches you. No file is delivered without three human eyes confirming it.
+
+            </p>
+            </div>
+        </div>
+        
+        <!-- Night Time Support -->
+        <div class="info-card">
+            <div class="card-header">
+
+            <span class="feature-heading">
+                <img src="Vector.svg" class="img-svg">
+
+                <span class="feature-line">Night Time</span>
+                <span class="feature-line">Support</span>
+            </span>
+            <img src="arrw.png" alt="arrow" class="arw" />
+            </div>
+            <div class="card-body">
+            <p >
+                <span class="dot">●</span> Need revisions late in the day? We’re still online.  The ‘Night Team’ works till 1:00 AM IST, so your late-night requests are handled by morning.
+
+            </p>
+            </div>
+        
+        </div>
+        
+        <!-- 12 Hour Turnaround -->
+        <div class="info-card">
+            <div class="card-header">
+
+            <span class="feature-heading">
+                <img src="time.svg" class="img-svg">
+
+                <span class="feature-line"> &lt 12 Hour</span>
+                <span class="feature-line">Turnaround</span>
+            </span>
+            <img src="arrw.png" alt="arrow" class="arw" />
+            </div>
+        
+            <div class="card-body">
+            <p >
+                <span class="dot">●</span> With a robust system of multiple teams and a streamlined process, we ensure we are never late to deliver. With 12 Hour Turnaround guarantee, get most standard edits back within the same day.
+
+            </p>
+            </div>
+        </div>
+        
+        <!-- No Payment for Rejected Work -->
+        <div class="info-card">
+            <div class="card-header">
+
+            <span class="feature-heading">
+                <img src="Group (1).svg" class="img-svg">
+
+                <span class="feature-line">No Payment</span>
+                <span class="feature-line">for Rejected Work</span>
+            </span>
+            <img src="arrw.png" alt="arrow" class="arw" />
+            </div>
+            <div class="card-body">
+            <p >
+                <span class="dot">●</span> If you don’t like it, you don’t pay for it. Customer satisfaction is something that we value the most, so if the work is off-brief or unsatisfactory, you don’t pay.
+
+            </p>
+            </div>
+        </div>
+        
+        <!-- Free Samples Available -->
+        <div class="info-card">
+            <div class="card-header">
+
+            <span class="feature-heading">
+                <img src="Group (2).svg" class="img-svg">
+
+                <span class="feature-line">Free Samples</span>
+                <span class="feature-line">Available</span>
+            </span>
+            <img src="arrw.png" alt="arrow" class="arw" />
+            </div>
+            <div class="card-body">
+            <p >
+                <span class="dot">●</span> At Shadow Agents the first video is always free. We’ll edit a sample video for free to take you through our process.
+            </p>
+            </div>
+        </div>
+        
+        <!-- Save-up On The Training Cost -->
+        <div class="info-card">
+            <div class="card-header">
+
+            <span class="feature-heading">
+                <img src="Group (3).svg" class="img-svg">
+
+                <span class="feature-line">Save-up On</span>
+                <span class="feature-line">The Training Cost</span>
+            </span>
+            <img src="arrw.png" alt="arrow" class="arw" />
+            </div>
+            <div class="card-body">
+            <p >
+                <span class="dot">●</span> We absorb the cost of onboarding and training new editors dedicated to your brand. We take up all the hassle while you sit back and enjoy an automated process.
+            </p>
+            </div>
+        </div>
+        
+        </div>
+      <div class="gradient-bar"></div>
+      </div>  
+  
+  </section>
+
+    <section class="py-5 blank-box">
+      <div class="container">
+        <h1 class="flow">
+          Want to see exactly how we
+          <span class="high">structure our workflows?</span>
+        </h1>
+        <div class="subheading">
+          <img src="↙down.svg" /> Scroll down and explore each component of our
+          system.
+        </div>
+
+        <div class="scroll-box">
+          <img src="floww.png" alt="" class="flow-img">
+        </div>
+      </div>
+    </section>
+
+    <!-- portofolio -->
+
+    <section class="portfolio-section" id="portfolio">
+      <div class="container">
+        <h2 class="portfolio-heading">
+          Portfolio <span class="highlight">Samples</span>
+        </h2>
+    
+        <div class="portfolio-wrapper">
+          <div class="portfolio-track" id="portfolioTrack">
+            <!-- Card 1 -->
+            <div class="portfolio-card">
+
+              <div class="video-wrapper">
+                <img src="sampurna.jpg" alt="Video Thumbnail" class="portfolio-thumbnail" />
+                <iframe src="https://www.youtube.com/embed/f6FzdcrVlZU?si=yx-xQErnAhy3KXUj" allowfullscreen allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"></iframe>
+                
+                <div class="video-overlay"></div>
+              </div>
+              <button class="portfolio-scroll-btn">
+                <img src="Group 35.png" alt="Next" />
+              </button>
+            </div>
+    
+            <!-- Card 2 -->
+            <div class="portfolio-card">
+              <div class="video-wrapper">
+                <img src="aman.jpg" alt="Video Thumbnail" class="portfolio-thumbnail" />
+                <iframe src="https://www.youtube.com/embed/71ifq7QFonc?rel=0" style="top: 0; left: 0; width: 100%; height: 100%; position: absolute; border: 0;" allowfullscreen scrolling="no" allow="accelerometer *; clipboard-write *; encrypted-media *; gyroscope *; picture-in-picture *; web-share *;"></iframe>
+                <div class="video-overlay"></div>
+              </div>
+              <button class="portfolio-scroll-btn">
+                <img src="Group 35.png" alt="Next" />
+              </button>
+            </div>
+    
+            <!-- Card 3 -->
+            <div class="portfolio-card">
+              <div class="video-wrapper">
+                <img src="revant.jpg" alt="Video Thumbnail" class="portfolio-thumbnail" />
+
+                <iframe src="https://www.youtube.com/embed/xd0HgX-5jYY?rel=0" style="top: 0; left: 0; width: 100%; height: 100%; position: absolute; border: 0;" allowfullscreen scrolling="no" allow="accelerometer *; clipboard-write *; encrypted-media *; gyroscope *; picture-in-picture *; web-share *;"></iframe>
+                <div class="video-overlay"></div>
+              </div>
+              <button class="portfolio-scroll-btn">
+                <img src="Group 35.png" alt="Next" />
+              </button>
+            </div>
+    
+            <!-- Card 4 -->
+            <div class="portfolio-card">
+              <div class="video-wrapper">
+                <img src="revant.jpg" alt="Video Thumbnail" class="portfolio-thumbnail" />
+
+                <iframe src="https://www.youtube.com/embed/VTFFaU1tllY?rel=0" style="top: 0; left: 0; width: 100%; height: 100%; position: absolute; border: 0;" allowfullscreen scrolling="no" allow="accelerometer *; clipboard-write *; encrypted-media *; gyroscope *; picture-in-picture *; web-share *;"></iframe>
+                <div class="video-overlay"></div>
+              </div>
+              <button class="portfolio-scroll-btn">
+                <img src="Group 35.png" alt="Next" />
+              </button>
+            </div>
+          </div>
+          <div class="see-more">
+            <a href="https://drive.google.com/drive/folders/1zh6d33L2jhCr43pyXz2b8Bds6QGxI4gR" target="_blank">See More</a>
+          </div>
+        </div>
+        <div class="gradient-bar"></div>
+      </div>
+    </section>
+    
+
+    <!-- testimonial -->
+    <section class="testimonial-section section">
+      <div class="container">
+        <h2 class="testimonial-heading">Testimonials</h2>
+
+        <div class="testimonial-wrapper">
+          <div class="testimonial-track" id="testimonialTrack">
+            <div class="testimonial-card">
+              <img src="quote.svg" alt="Person Image" class="quote-icon-img" />
+              <img src="pin.png" class="pin" />
+              <p class="testimonial-text">
+                Shadow Agents transformed our agency’s profitability with
+                consistent quality and timely deliveries. We’ve reduced
+                revisions by 90%.”
+              </p>
+              <strong class="testimonial-author">– Agency Owner, Canada</strong>
+              <button
+                class="scroll-btn"
+                data-url="https://example.com/founder-uk"
+              >
+                <img src="Group 35.png" />
+              </button>
+            </div>
+
+            <div class="testimonial-card">
+              <img src="quote.svg" alt="Person Image" class="quote-icon-img" />
+              <img src="pin.png" class="pin" />
+              <p class="testimonial-text">
+                The dedicated brand manager feature completely streamlined our
+                workflow. Communication is finally frictionless.”<br /><br />
+              </p>
+              <strong class="testimonial-author">– Founder, UK</strong>
+              <button
+                class="scroll-btn"
+                data-url="https://example.com/founder-uk"
+              >
+                <img src="Group 35.png" />
+              </button>
+            </div>
+
+            <div class="testimonial-card">
+              <img src="quote.svg" alt="Person Image" class="quote-icon-img" />
+              <img src="pin.png" class="pin" />
+              <p class="testimonial-text">
+                Their quick turnaround times made it effortless to handle client
+                demands. Our content calendar actually runs ahead of
+                schedule.”<br /><br />
+              </p>
+              <strong class="testimonial-author">– CEO, Australia</strong>
+              <button
+                class="scroll-btn"
+                data-url="https://example.com/ceo-australia"
+              >
+                <img src="Group 35.png" />
+              </button>
+            </div>
+
+            <div class="testimonial-card">
+              <img src="quote.svg" alt="Person Image" class="quote-icon-img" />
+              <img src="pin.png" class="pin" />
+              <p class="testimonial-text">
+                From 5 to 22 clients in 6 months—Shadow Agents scaled our
+                backend with zero hiring. They’re the team behind our
+                growth.”<br /><br />
+              </p>
+              <strong class="testimonial-author"
+                >– Media Agency Owner, US</strong
+              >
+              <button
+                class="scroll-btn"
+                data-url="https://example.com/media-agency-us"
+              >
+                <img src="Group 35.png" />
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="gradient-bar"></div>
+      </div>
+    </section>
+
+    <!-- F&Q -->
+
+    <section class="faqs section">
+      <div class="container">
+        <h2 class="outsourcing"><span class="highlight4">FAQs</span></h2>
+
+        <div class="faq-container">
+          <div class="faq-set">
+            <div class="faq-con" data-target="faq1">
+            <div class="faq-trigger" data-target="faq1" title="Click here">
+              <span class="faq-title">
+                <span class="faq-line">Who is this not for?</span>
+              </span>
+              <img src="arrw.png" class="faq-arrow" />
+            </div>
+            </div>
+            <div class="faq-answer" id="faq1" style="display: none">
+              <div class="faq-body">
+                <p>
+                  <span class="faq-dot">●</span> Shadow Agents is not for brands
+                  looking for one-time edits or individual creators with
+                  infrequent volume. We work exclusively with agencies that
+                  require consistent monthly delivery.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="faq-set">
+            <div class="faq-trigger" data-target="faq2">
+              <span class="faq-title">
+                <span class="faq-line">Who this is for?</span>
+              </span>
+              <img src="arrw.png" class="faq-arrow" />
+            </div>
+            <div class="faq-answer" id="faq2" style="display: none">
+              <div class="faq-body">
+                <p>
+                  <span class="faq-dot">●</span> Built for agencies that want
+                  white-label editing support with full bandwidth and dedicated
+                  resources. Ideal for growth-stage agencies and B2B production
+                  consultants.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="faq-set">
+            <div class="faq-trigger" data-target="faq3">
+              <span class="faq-title">
+                <span class="faq-line">What's your average</span>
+                <span class="faq-line"> turnaround time?</span>
+              </span>
+              <img src="arrw.png" class="faq-arrow" />
+            </div>
+            <div class="faq-answer" id="faq3" style="display: none">
+              <div class="faq-body">
+                <p>
+                  <span class="faq-dot">●</span> Most standard edits are
+                  returned within 12 hours. Revisions happen even faster.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="faq-set">
+            <div class="faq-trigger" data-target="faq4">
+              <span class="faq-title">
+                <span class="faq-line">Can I test the service?</span>
+              </span>
+              <img src="arrw.png" class="faq-arrow" />
+            </div>
+            <div class="faq-answer" id="faq4" style="display: none">
+              <div class="faq-body">
+                <p>
+                  <span class="faq-dot">●</span> Yes, we offer free sample edits
+                  to help you evaluate our workflow and quality before
+                  committing.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="faq-set">
+            <div class="faq-trigger" data-target="faq5">
+              <span class="faq-title">
+                <span class="faq-line">How do you handle</span>
+                <span class="faq-line"> revisions?</span>
+              </span>
+              <img src="arrw.png" class="faq-arrow" />
+            </div>
+            <div class="faq-answer" id="faq5" style="display: none">
+              <div class="faq-body">
+                <p>
+                  <span class="faq-dot">●</span> We incorporate feedback via the
+                  Brand Manager within the same day. If you still don’t like the
+                  result, you don’t pay.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="gradient-bar"></div>
+      </div>
+    </section>
+
+    <!-- counter -->
+       <section class="section" id="about">
+        <div class="boxes">
+          <h2>Why Trust <span class="highlight">Shadow Agents?</span></h2>
+            <div class="small-boxes">
+              <!--<div class="sm-boxes"><p class="number"> 1 </p> 
+              <span class="description">in-house studio</span>
+            </div>-->
+            <div class="sm-boxes">
+              <p class="number">100+</p> 
+              <span class="description">Team Members</span>
+            </div>
+            <div class="sm-boxes">
+              <p class="number">1500+</p> 
+              <span class="description">videos edited/month</span>
+            </div>
+             <div class="sm-boxes">
+            <p class="number">500+</p> 
+              <span class="description">active agency delegations by 2028</span>
+              </div>
+            <div class="sm-boxes"><span>Backed by Blue Minch- a 9 Figure Marketing Agency</span></div>
+          </div>
+        </div>
+        <div class="gradient-bar"></div>
+      </section>
+
+    <!-- calender -->
+
+    <section class="booking-section section" id="contact">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-6 col-md-12">
+            <div class="d-flex justify-content-between flex-column h-100">
+              <h2 class="booking-heading">
+                <span class="line1">Still Managing<br />Editors In-House?</span
+                ><br />
+                <span class="line2"
+                  >“That’s Slowing <br />
+                  You Down.”</span
+                >
+              </h2>
+
+              <!--<p class="subtext2">
+                Watch the free video to see how top agencies outsource editing
+                and grow faster.
+              </p>-->
+
+              <section id="contact-section">
+                <h2 class="text-center fw-bold mb-3">Get in Touch</h2>
+
+  <form 
+    id="contact-form"
+    action="https://formsubmit.co/Shayan@blueminch.com" 
+    method="POST" 
+    target="hidden_iframe"
+    onsubmit="showSuccessMessage()"
+  >
+    <input type="text" name="name" placeholder="Name" required />
+    <input type="text" name="number" placeholder="Number" required />
+    <input type="email" name="email" placeholder="Email Id" required />
+    <input type="text" name="agency_name" placeholder="Agency Name" required />
+
+    <input type="hidden" name="_captcha" value="false">
+    <input type="hidden" name="_template" value="table">
+
+    <button type="submit" id="submit-button">submit</button>
+    <div id="success-msg">Thank you! Message sent </div>
+  </form>
+  <iframe name="hidden_iframe" id="hidden_iframe"></iframe>
+</section>
+
+
+
+            </div>
+          </div>
+          <div class="col-lg-6 col-md-12">
+            <!-- Calendly inline widget begin -->
+            <div
+              class="calendly-inline-widget"
+              data-url="https://calendly.com/seo-blueminch/30min?hide_event_type_details=1&hide_gdpr_banner=1"
+              style="min-width: 320px; height: 630px"
+            ></div>
+            <!-- Calendly script should be outside the div -->
+            <script
+              type="text/javascript"
+              src="https://assets.calendly.com/assets/external/widget.js"
+              async
+            ></script>
+            <!-- Calendly inline widget end -->
+            <div class="gradient-bar"></div>
+
+            <div class="time">
+              <button class="cta-button">Choose a time to talk</button>
+              <!--<div class="text-group">
+                <span class="info">30 seconds to schedule.</span>
+                <span class="arrow">
+                  <img src="arrow-down.svg" alt="arrow icon" /> No obligation.
+                </span>
+              </div>-->
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+<!--Whatsapp button-->
+<a href="https://wa.me/918101414114?text=Hi%2C%20I%E2%80%99m%20interested%20in%20your%20services.%20Can%20we%20talk%3F" 
+   class="whatsapp-float" 
+   target="_blank">
+   <img src="wpp.png" alt="Chat on WhatsApp" />
+</a>
+
+<!--<div class="container">
+<section id="contact-section">
+  <form 
+    id="contact-form"
+    action="https://formsubmit.co/gungunsahu1976@gmail.com" 
+    method="POST" 
+    target="hidden_iframe"
+    onsubmit="showSuccessMessage()"
+  >
+    <input type="text" name="name" placeholder="Name" required />
+    <input type="text" name="number" placeholder="Number" required />
+    <input type="email" name="email" placeholder="Email Id" required />
+    <input type="text" name="agency_name" placeholder="Agency Name" required />
+
+    <input type="hidden" name="_captcha" value="false">
+    <input type="hidden" name="_template" value="table">
+
+    <button type="submit" id="submit-button">submit</button>
+    <div id="success-msg">Thank you! Message sent </div>
+  </form>
+  <iframe name="hidden_iframe" id="hidden_iframe"></iframe>
+</section>
+
+</div>-->
+    <footer>
+      <div class="footer-container">
+        <div class="container">
+            <div class="row flex-lg-nowrap justify-content-between">
+                <div class="col-lg-4 col-md-12 text-start footer-one">
+                    <img src="logo.png" class="logo" alt="The Shadow Agents Logo" />
+                </div>
+                <div class="col-lg-4 col-md-12 text-center footer-menu">
+                    <ul class="footer-links">
+                        <li>
+                            <a href="#"><img src="darrow.svg" alt="" /> About</a>
+                        </li>
+                        <li>
+                            <a href="#portfolio"><img src="darrow.svg" alt="" /> Samples Videos</a>
+                        </li>
+                        <li>
+                            <a href="#"><img src="darrow.svg" alt="" /> Connect with us</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-lg-4 col-md-12 text-end mob">
+                    <div class="social-icons">
+            <a
+                href="https://business.facebook.com/latest/?asset_id=537182212821345&business_id=1038278881086242&nav_ref=profile_plus_admin_tool "
+                ><img src="facebook.svg" alt="Facebook"
+            /></a>
+            <a
+                href="https://www.instagram.com/shadowagents1?igsh=bjg5bXFlNXhlMmtt&utm_source=qr"
+                ><img src="instagram.svg" alt="Instagram"
+            /></a>
+            <a href="https://www.linkedin.com/company/106462802/admin/dashboard/"
+                ><img src="linkedin.svg" alt="LinkedIn"
+            /></a>
+            <a href="https://www.youtube.com/@ShadowAgents-j1n"
+                ><img
+                src="youtube.svg"
+                alt="YouTube"
+                style="height: auto; width: 39px; margin-top: -5px"
+            /></a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+      </div>
+     
+    </footer>
+
+    <div class="container mb-con">
+        <div class="social-icons2">
+            <a
+                href="https://www.facebook.com/people/Shadow-Agency/61574427526599/?rdid=Tb6z0sG3F9gGlATn&share_url=https%3A%2F%2Fwww.facebook.com%2Fshare%2F1C7c3tNTaQ%2F "
+                ><img src="facebook.svg" alt="Facebook"
+            /></a>
+            <a
+                href="https://www.instagram.com/shadowagents1?igsh=bjg5bXFlNXhlMmtt&utm_source=qr"
+                ><img src="instagram.svg" alt="Instagram"
+            /></a>
+            <a href="https://www.linkedin.com/company/106462802/admin/dashboard/"
+                ><img src="linkedin.svg" alt="LinkedIn"
+            /></a>
+            <a href="https://www.youtube.com/@ShadowAgents-j1n"
+                ><img
+                src="youtube.svg"
+                alt="YouTube"
+                style="height: auto; width: 39px; margin-top: -5px"
+            /></a>
+        </div>
+        <p class="copyr">Copyright 2025. All Rights Reserved.</p>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+      document
+        .querySelector(".menu-toggle")
+        .addEventListener("click", function () {
+          document.querySelector(".nav-links").classList.toggle("show");
+        });
+    </script>
+
+<script>
+  function showSuccessMessage() {
+    setTimeout(function () {
+      document.getElementById("success-msg").style.display = "block";
+      document.getElementById("contact-form").reset();
+    }, 500);
   }
-}
-startTestimonialAutoSlide();
+</script>
 
-let testimonialTouchStartX = 0;
-let testimonialTouchEndX = 0;
-
-testimonialTrack.addEventListener('touchstart', (e) => {
-  testimonialTouchStartX = e.touches[0].clientX;
-});
-
-testimonialTrack.addEventListener('touchmove', (e) => {
-  testimonialTouchEndX = e.touches[0].clientX;
-});
-
-testimonialTrack.addEventListener('touchend', () => {
-  const swipeDistance = testimonialTouchStartX - testimonialTouchEndX;
-
-  if (swipeDistance > 50) {
-    testimonialCurrentIndex = (testimonialCurrentIndex + 1) % testimonialCards.length;
-    scrollToTestimonial(testimonialCurrentIndex);
-  } else if (swipeDistance < -50) {
-    testimonialCurrentIndex = (testimonialCurrentIndex - 1 + testimonialCards.length) % testimonialCards.length;
-    scrollToTestimonial(testimonialCurrentIndex);
+<script>
+  function playVideoInline() {
+    const thumbnail = document.querySelector('.video-thumbnail');
+    const iframe = document.querySelector('.video-iframe');
+    thumbnail.style.display = 'none';
+    iframe.style.display = 'block';
   }
-});
+  </script>
+  
 
-
-
-const portfolioTrack = document.getElementById('portfolioTrack');
-const portfolioCards = document.querySelectorAll('.portfolio-card');
-let portfolioIndex = 0;
-
-function moveToPortfolio(index) {
-  const totalCards = portfolioCards.length;
-  if (index < 0) index = totalCards - 1;
-  if (index >= totalCards) index = 0;
-  portfolioIndex = index;
-  const cardWidth = portfolioCards[0].offsetWidth;
-  portfolioTrack.style.transform = `translateX(-${portfolioIndex * cardWidth}px)`;
-}
-
-// Manual swipe
-let startX = 0;
-let endX = 0;
-
-portfolioTrack.addEventListener('touchstart', (e) => {
-  startX = e.touches[0].clientX;
-});
-
-portfolioTrack.addEventListener('touchmove', (e) => {
-  endX = e.touches[0].clientX;
-});
-
-portfolioTrack.addEventListener('touchend', () => {
-  const swipeDistance = startX - endX;
-
-  if (swipeDistance > 50) {
-    moveToPortfolio(portfolioIndex + 1); // swipe left
-  } else if (swipeDistance < -50) {
-    moveToPortfolio(portfolioIndex - 1); // swipe right
-  }
-});
-
-// Responsive adjustment
-window.addEventListener('resize', () => {
-  moveToPortfolio(portfolioIndex);
-});
-
-
-
-
-//faq
-
-document.querySelectorAll('.faq-trigger').forEach(trigger => {
-  const targetId = trigger.getAttribute('data-target');
-  const answer = document.getElementById(targetId);
-
-  trigger.style.cursor = 'pointer';
-
-  trigger.addEventListener('click', (e) => {
-    e.stopPropagation();
-    const isVisible = answer.style.display === 'block';
-    answer.style.display = isVisible ? 'none' : 'block';
-
-    if (!isVisible) {
-      answer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  <script>
+    document.querySelectorAll('.portfolio-card').forEach(card => {
+      const thumbnail = card.querySelector('.portfolio-thumbnail');
+      thumbnail.addEventListener('click', () => {
+        thumbnail.style.opacity = '0';
+        thumbnail.style.pointerEvents = 'none';
+      });
+    });
+  </script>
+  
+  <script>
+    const portfolioTrack = document.getElementById('portfolioTrack');
+    const portfolioCards = document.querySelectorAll('.portfolio-card');
+    let portfolioIndex = 0;
+  
+    function moveToPortfolio(index) {
+      const totalCards = portfolioCards.length;
+      if (index < 0) index = totalCards - 1;
+      if (index >= totalCards) index = 0;
+      portfolioIndex = index;
+      const cardWidth = portfolioCards[0].offsetWidth;
+      portfolioTrack.style.transform = `translateX(-${portfolioIndex * cardWidth}px)`;
     }
-  });
-});
-
-document.querySelectorAll('.faq-trigger').forEach(trigger => {
-  trigger.setAttribute('title', 'Click here to expand');
-});
-
-
-
-
-document.querySelectorAll('.info-card .card-header').forEach(header => {
-  const cardBody = header.nextElementSibling;
-
-  header.style.cursor = 'pointer';
-
-  header.addEventListener('click', () => {
-    const isOpen = cardBody.style.display === 'block';
-
-    // Toggle visibility of the card body
-    cardBody.style.display = isOpen ? 'none' : 'block';
-  });
-});
-
-
-document.querySelectorAll('.card-header').forEach(header => {
-  header.setAttribute('title', 'Click here to expand');
-});
-
-
-//menu-Toggle
-function toggleMenu() {
-  document.getElementById('navLinks').classList.toggle('active');
-}
-
-
-//animation number
-// Number Animations
-// Number Animations
-function animateCount(el, target, duration = 2000) {
-  let start = 1;
-  const stepTime = Math.max(Math.floor(duration / (target - start)), 20);
-
-  const counter = setInterval(() => {
-    el.textContent = start;
-    start++;
-
-    if (start > target) {
-      clearInterval(counter);
-    }
-  }, stepTime);
-}
-
-function animateCount(el, target, duration = 2000, suffix = "+") {
-  let start = 1;
-  let current = start;
-
-  const increment = target > 500 ? Math.ceil(target / (duration / 30)) : 1;
-  const intervalTime = 30;
-
-  const counter = setInterval(() => {
-    current += increment;
-    if (current >= target) {
-      el.textContent = target.toLocaleString() + suffix;
-      clearInterval(counter);
-    } else {
-      el.textContent = current.toLocaleString() + suffix;
-    }
-  }, intervalTime);
-}
-
-// scrolling animation
-const animatedElements = document.querySelectorAll('.sm-boxes p');
-const observer = new IntersectionObserver((entries, obs) => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      const el = entry.target;
-      const target = parseInt(el.textContent.replace(/,/g, '').trim());
-
-      if (!el.dataset.animated) {
-        animateCount(el, target);
-        el.dataset.animated = "true";
+  
+    // Touch swipe logic
+    let startX = 0;
+    let endX = 0;
+  
+    portfolioTrack.addEventListener('touchstart', (e) => {
+      startX = e.touches[0].clientX;
+    });
+  
+    portfolioTrack.addEventListener('touchmove', (e) => {
+      endX = e.touches[0].clientX;
+    });
+  
+    portfolioTrack.addEventListener('touchend', () => {
+      const swipeDistance = startX - endX;
+  
+      if (swipeDistance > 50) {
+        moveToPortfolio(portfolioIndex + 1); // swipe left
+      } else if (swipeDistance < -50) {
+        moveToPortfolio(portfolioIndex - 1); // swipe right
       }
-
-      obs.unobserve(el);
-    }
-  });
-}, { threshold: 0.5 });
-
-animatedElements.forEach(p => {
-  observer.observe(p);
-});
+    });
+  
+    // Resize recalculation
+    window.addEventListener('resize', () => {
+      moveToPortfolio(portfolioIndex);
+    });
+  
+    // Initial position
+    moveToPortfolio(0);
+  </script>
+  
+  </body>
+</html>
